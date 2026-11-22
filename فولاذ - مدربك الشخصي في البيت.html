@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>فولاذ — مدرب صقر الشخصي</title>
+
+  <!-- Mobile Web App Meta -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="فولاذ" />
+  <meta name="theme-color" content="#060f0a" />
+
+  <!-- Arabic Font: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'Segoe UI', 'Tahoma', 'Arial', 'sans-serif'],
+          },
+          colors: {
+            bgDeep: '#060f0a',
+            bgCard: '#0d1d14',
+            bgSurface: '#132a1c',
+            emeraldPri: '#10b981',
+            mintHi: '#34d399',
+            limeSpark: '#a3e635',
+            textMain: '#ecfdf5',
+            textSoft: '#a7f3d0',
+            danger: '#ef4444',
+            warn: '#f59e0b',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* =========================================================================
+       PERFECT NATURAL SCROLLING — NEVER LOCK HTML OR BODY HEIGHT
+       ========================================================================= */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      height: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background-color: #060f0a;
+      color: #ecfdf5;
+      font-family: 'Cairo', 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+    }
+
+    /* Mobile-First Centered Frame (520px max on desktop, 100% on mobile) */
+    .app-shell {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      min-height: 100vh;
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.14) 0%, transparent 42%),
+        #060f0a;
+    }
+
+    @media (min-width: 540px) {
+      .app-shell {
+        border-left: 1px solid rgba(16, 185, 129, 0.18);
+        border-right: 1px solid rgba(16, 185, 129, 0.18);
+        box-shadow: 0 0 80px rgba(16, 185, 129, 0.12);
+      }
+    }
+
+    /* Generous Bottom Padding for Fixed Bottom Nav */
+    .main-pad {
+      padding: 16px 15px 118px 15px;
+    }
+
+    /* Tactical Cards & Glows */
+    .card-tactical {
+      background: linear-gradient(155deg, rgba(19, 42, 28, 0.94), rgba(13, 29, 20, 0.98));
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+    }
+
+    .glow-emerald {
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.35);
+    }
+
+    .glow-lime {
+      box-shadow: 0 6px 24px rgba(163, 230, 53, 0.28);
+    }
+
+    .nav-bar-glass {
+      background: rgba(6, 15, 10, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    /* Circular Hold Timer Progress */
+    .ring-prog {
+      transition: stroke-dashoffset 0.35s linear;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+
+    /* Live Breathing Pacer Animation */
+    @keyframes breathePacer {
+      0%, 100% {
+        transform: scale(1);
+        border-color: rgba(16, 185, 129, 0.55);
+        background-color: rgba(16, 185, 129, 0.15);
+      }
+      50% {
+        transform: scale(1.03);
+        border-color: rgba(163, 230, 53, 0.95);
+        background-color: rgba(163, 230, 53, 0.22);
+      }
+    }
+    .breathe-active {
+      animation: breathePacer 6s ease-in-out infinite;
+    }
+
+    /* Tab Fade-Up Transition */
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-slide {
+      animation: fadeSlide 0.22s ease-out;
+    }
+
+    /* Scrollable Modals (max-height: 85vh; overflow-y: auto;) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(3, 9, 6, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-backdrop.hidden {
+      display: none;
+    }
+    .modal-card {
+      width: 100%;
+      max-width: 460px;
+      max-height: 85vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50 hidden"></canvas>
+
+  <!-- Toast Banner -->
+  <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 z-[80] hidden max-w-[90vw] px-5 py-3 rounded-2xl bg-bgSurface border border-limeSpark/70 text-textMain text-sm font-extrabold shadow-2xl text-center"></div>
+
+  <!-- Main App Shell -->
+  <div class="app-shell">
+
+    <!-- Sticky Top Header (with quick audio mute toggle ONLY) -->
+    <header class="sticky top-0 z-30 bg-bgDeep/95 backdrop-blur-md border-b border-emeraldPri/20 px-4 py-3">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-limeSpark to-emeraldPri flex items-center justify-center text-bgDeep font-black text-xl glow-emerald shrink-0">
+            ⚡
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <h1 class="text-lg font-black text-textMain leading-none">فولاذ</h1>
+              <span id="hdrPhase" class="text-[11px] font-black px-2 py-0.5 rounded-lg bg-emeraldPri/20 border border-emeraldPri/40 text-limeSpark">المرحلة 1</span>
+            </div>
+            <p class="text-[11px] font-bold text-textSoft/80 truncate mt-0.5">مدرب صقر الشخصي • بدون حيرة</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 shrink-0">
+          <div class="px-2.5 py-1.5 rounded-xl bg-bgCard border border-emeraldPri/25">
+            <span id="hdrXP" class="text-xs font-black text-limeSpark">0 XP</span>
+          </div>
+          <div class="px-2.5 py-1.5 rounded-xl bg-bgCard border border-emeraldPri/25">
+            <span id="hdrStreak" class="text-xs font-black text-textMain">0 🔥</span>
+          </div>
+          <button id="muteBtn" onclick="toggleMute()" aria-label="تبديل الصوت" title="الصوت"
+            class="w-9 h-9 rounded-xl bg-bgCard border border-emeraldPri/25 flex items-center justify-center text-base active:scale-90 transition">
+            🔊
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dynamic Tab Content -->
+    <main id="appMain" class="main-pad"></main>
+
+    <!-- Fixed 4-Tab Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[520px] z-40 nav-bar-glass">
+      <div class="grid grid-cols-4 px-2 py-2 gap-1">
+        <button onclick="switchTab('home')" data-tab="home" class="nav-btn flex flex-col items-center justify-center py-2 rounded-2xl transition gap-0.5">
+          <span class="text-lg leading-none">🏠</span>
+          <span class="text-xs font-extrabold">الرئيسية</span>
+        </button>
+        <button onclick="switchTab('workout')" data-tab="workout" class="nav-btn flex flex-col items-center justify-center py-2 rounded-2xl transition gap-0.5">
+          <span class="text-lg leading-none">🔥</span>
+          <span class="text-xs font-extrabold">التمرين</span>
+        </button>
+        <button onclick="switchTab('plan')" data-tab="plan" class="nav-btn flex flex-col items-center justify-center py-2 rounded-2xl transition gap-0.5">
+          <span class="text-lg leading-none">📋</span>
+          <span class="text-xs font-extrabold">الجدول</span>
+        </button>
+        <button onclick="switchTab('progress')" data-tab="progress" class="nav-btn flex flex-col items-center justify-center py-2 rounded-2xl transition gap-0.5">
+          <span class="text-lg leading-none">🏆</span>
+          <span class="text-xs font-extrabold">تقدمي</span>
+        </button>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Anti-Laziness Spark Modal ("وضع الشرارة ⚡") -->
+  <div id="sparkModal" class="modal-backdrop hidden">
+    <div class="modal-card card-tactical rounded-3xl p-5 space-y-4 border-limeSpark/60">
+      <div class="flex items-center justify-between">
+        <span class="px-3 py-1 rounded-full bg-limeSpark/20 border border-limeSpark/50 text-limeSpark text-xs font-black">⚡ وضع الشرارة ضد الكسل</span>
+        <button onclick="closeSparkModal()" aria-label="إغلاق" class="w-9 h-9 rounded-xl bg-bgSurface text-textMain font-black flex items-center justify-center active:scale-90">✕</button>
+      </div>
+
+      <div class="text-center space-y-2.5">
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-limeSpark to-emeraldPri flex items-center justify-center text-3xl text-bgDeep glow-lime">
+          🦅
+        </div>
+        <h2 class="text-xl font-black text-textMain">يا صقر.. متفكرش في النص ساعة كلها!</h2>
+        <p id="sparkQuote" class="text-sm font-extrabold text-textSoft leading-relaxed bg-bgDeep/80 rounded-2xl p-3.5 border border-emeraldPri/25"></p>
+      </div>
+
+      <div class="bg-bgDeep/85 rounded-3xl p-4 border border-emeraldPri/30 text-center space-y-3">
+        <p class="text-xs font-black text-limeSpark">دقيقة واحدة بس تكسر الكسل</p>
+        <div id="sparkClock" class="text-5xl font-black text-textMain tracking-wider">01:00</div>
+        <p id="sparkCue" class="text-xs font-extrabold text-mintHi bg-bgSurface rounded-xl py-2.5 px-3 border border-emeraldPri/20">
+          1️⃣ قوم اقف على رجلك دلوقتي حالاً!
+        </p>
+        <button id="sparkToggleBtn" onclick="toggleSparkTimer()" class="w-full py-3.5 rounded-2xl bg-emeraldPri text-bgDeep font-black text-base glow-emerald active:scale-95 transition">
+          ابدأ الـ 60 ثانية ⚡
+        </button>
+      </div>
+
+      <div class="space-y-2">
+        <button onclick="goFromSparkToWorkout()" class="w-full py-4 rounded-2xl bg-limeSpark text-bgDeep font-black text-base glow-lime active:scale-95 transition">
+          قومت خلاص! ابدأ التسخين دلوقتي 🚀
+        </button>
+        <button onclick="closeSparkModal()" class="w-full py-2.5 rounded-xl bg-bgCard text-gray-400 font-bold text-xs">
+          إغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Safety Guide Modal ("دليل الأمان 🛡️") -->
+  <div id="safetyModal" class="modal-backdrop hidden">
+    <div class="modal-card card-tactical rounded-3xl p-5 space-y-4 border-emeraldPri/50">
+      <div class="flex items-center justify-between">
+        <span class="px-3 py-1 rounded-full bg-emeraldPri/20 border border-emeraldPri/45 text-limeSpark text-xs font-black">🛡️ دليل الأمان الذهبي لصقر</span>
+        <button onclick="closeSafetyModal()" aria-label="إغلاق" class="w-9 h-9 rounded-xl bg-bgSurface text-textMain font-black flex items-center justify-center active:scale-90">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs leading-relaxed">
+        <div class="bg-emeraldPri/15 border border-emeraldPri/45 rounded-2xl p-3.5 space-y-1">
+          <div class="text-sm font-black text-limeSpark">✅ حرقان العضلة الطبيعي (كمّل!)</div>
+          <p class="text-textMain font-semibold">سخونة وحرقان جوا العضلة، رعشة خفيفة في آخر 5 ثواني من الثبات، وتكسير بسيط في الجسم تاني يوم أول أسبوع — ده معناه إن جسمك بيقوى فعلاً!</p>
+        </div>
+
+        <div class="bg-danger/15 border border-danger/45 rounded-2xl p-3.5 space-y-1">
+          <div class="text-sm font-black text-red-300">🛑 وجع المفصل الحاد (وقف فوراً!)</div>
+          <p class="text-red-100 font-semibold">أي نخزة أو وجع حاد جوا <strong>مفصل</strong> (ركبة، كتف، رسغ، أسفل ضهر) معناه الأداء غلط أو الحمل تقيل — وقف التمرين فوراً وافتح الفيديو القصير تراجع الوضعية.</p>
+        </div>
+
+        <div class="bg-bgDeep/85 border border-emeraldPri/30 rounded-2xl p-3.5 space-y-1">
+          <div class="text-sm font-black text-mintHi">🫁 قاعدة التنفس (أهم قاعدة في الثبات)</div>
+          <p class="text-textSoft font-semibold">إوعى تكتم نفسك وقت سحب الفوطة أو الثبات على الحيط أو البلانك! كتم النفس بيرفع الضغط وبيخليك تدوخ. خد شهيق هادي من مناخيرك وزفير منتظم من بوقك طول الوقت.</p>
+        </div>
+
+        <div class="bg-bgDeep/85 border border-emeraldPri/30 rounded-2xl p-3.5 space-y-1">
+          <div class="text-sm font-black text-limeSpark">🌙 قاعدة النوم (سن 17 سنة = كنز!)</div>
+          <p class="text-textSoft font-semibold">عضلاتك وأعصابك بتكبر وتقوى وقت النوم (7–9 ساعات) وأيام الراحة مش وقت التمرين. التزم بأيام الراحة زي ما بتلتزم بأيام التمرين بالظبط.</p>
+        </div>
+      </div>
+
+      <button onclick="closeSafetyModal()" class="w-full py-3.5 rounded-2xl bg-emeraldPri text-bgDeep font-black text-sm glow-emerald active:scale-95">
+        فهمت تمام ✓
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. Custom Confirmation Modal (Zero alert/confirm) -->
+  <div id="confirmModal" class="modal-backdrop hidden">
+    <div class="modal-card card-tactical rounded-3xl p-5 space-y-4">
+      <h3 id="confirmTitle" class="text-lg font-black text-textMain">تأكيد</h3>
+      <p id="confirmText" class="text-sm text-textSoft/90 leading-relaxed"></p>
+      <div id="confirmActions" class="flex gap-2.5 pt-1"></div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       FOOLAZ (فولاذ) — Decision-Free Home Strength Coach for Saqr (Age 17)
+       Verified Short Direct YouTube Videos (7s–29s) • 1 Video Per Movement
+       ========================================================================= */
+
+    const STORAGE_KEY = 'foolaz_saqr_shortvids_v4';
+
+    // Locked Weekly Schedule: Sunday (0), Wednesday (3), Friday (5)
+    const WORKOUT_DAYS = [0, 3, 5];
+    const WEEK_DAYS = [
+      { jsDay: 6, full: 'السبت',    short: 'سبت' },
+      { jsDay: 0, full: 'الأحد',    short: 'أحد' },
+      { jsDay: 1, full: 'الإثنين',  short: 'إثنين' },
+      { jsDay: 2, full: 'الثلاثاء', short: 'ثلاثاء' },
+      { jsDay: 3, full: 'الأربعاء', short: 'أربعاء' },
+      { jsDay: 4, full: 'الخميس',   short: 'خميس' },
+      { jsDay: 5, full: 'الجمعة',   short: 'جمعة' }
+    ];
+
+    const SPARK_QUOTES = [
+      '"مش لازم تبقى ضخم عشان تبقى قوي.. كل بطل بدأ من أول دقيقة كسر فيها الكسل!"',
+      '"قوم اقف على رجلك دلوقتي، لف كتافك 10 مرات، وخد 3 أنفاس عميقة — ده بس اللي مطلوب منك!"',
+      '"نص ساعة بس النهارده هتخليك فخور بنفسك طول الأسبوع.. إنت قدها يا صقر!"',
+      '"أصعب عدة في التمرينة كلها هي إنك تقوم من مكانك.. والباقي سهل!"'
+    ];
+
+    const RANKS = [
+      { minXP: 0,    level: 1, title: 'بداية الفولاذ',  icon: '🌱' },
+      { minXP: 200,  level: 2, title: 'عظم صلب',        icon: '🪨' },
+      { minXP: 500,  level: 3, title: 'مقاتل البيت',    icon: '⚔️' },
+      { minXP: 900,  level: 4, title: 'أعصاب حديد',     icon: '🛡️' },
+      { minXP: 1500, level: 5, title: 'فولاذ حقيقي',    icon: '⚡' },
+      { minXP: 2400, level: 6, title: 'أسطورة الفولاذ', icon: '🦅' }
+    ];
+
+    const BADGES = [
+      { id: 'first_step',   icon: '🥇', title: 'أول خطوة',         desc: 'خلصت أول تمرينة كاملة من الصفر' },
+      { id: 'week_streak',  icon: '🔥', title: 'التزام أسبوع',     desc: 'خلصت 3 تمرينات (أحد، أربعاء، جمعة)' },
+      { id: 'iron_nerves',  icon: '⚡', title: 'أعصاب حديد',       desc: 'جمّعت 300 ثانية ثبات إجمالي' },
+      { id: 'phase1_beast', icon: '🛡️', title: 'وحش المرحلة الأولى', desc: 'خلصت 12 تمرينة وفتحت المرحلة 2' },
+      { id: 'true_steel',   icon: '👑', title: 'فولاذ حقيقي',      desc: 'خلصت 24 تمرينة وفتحت المرحلة 3' },
+      { id: 'spark_win',    icon: '🦅', title: 'قاهر الكسل',       desc: 'غلبت الكسل بوضع الشرارة وبدأت' }
+    ];
+
+    // A. WARM-UP SECTION (4 individual movements, 45s each, 4 separate short verified videos)
+    const WARMUP_MOVES = [
+      {
+        id: 'w1',
+        svgKey: 'arm_circles',
+        name: 'دوائر الكتاف والدراعين (Arm Circles)',
+        seconds: 45,
+        tip: 'لف دراعاتك ببطء لقدام نص الوقت ولورا نص الوقت.',
+        yt: 'https://www.youtube.com/watch?v=lzR7tzI1JUI',
+        ytDur: '16 ثانية'
+      },
+      {
+        id: 'w2',
+        svgKey: 'wrist_circles',
+        name: 'تسخين رسغ الإيدين (Wrist Circles)',
+        seconds: 45,
+        tip: 'شبّك صوابعك ولف رسغك دوائر واسعة بالراحة في الاتجاهين لحماية مفصل الإيد قبل الضغط.',
+        yt: 'https://www.youtube.com/watch?v=23weTW3uNXg',
+        ytDur: '19 ثانية'
+      },
+      {
+        id: 'w3',
+        svgKey: 'trunk_rot',
+        name: 'لف الوسط والجذع (Trunk Rotation)',
+        seconds: 45,
+        tip: 'لف جذعك يمين وشمال بسلاسة عشان تسخن العمود الفقري وأسفل الضهر.',
+        yt: 'https://www.youtube.com/watch?v=j0fFx2Tx7r8',
+        ytDur: '7 ثواني'
+      },
+      {
+        id: 'w4',
+        svgKey: 'knee_circles',
+        name: 'تليين الركب (Knee Circles)',
+        seconds: 45,
+        tip: 'حط إيدك على فخدك ولف ركبتك دوائر هادية يمين وشمال.',
+        yt: 'https://www.youtube.com/watch?v=oNWp5wjOYws',
+        ytDur: '10 ثواني'
+      }
+    ];
+
+    // C. COOLDOWN & STRETCHING (3 individual stretches, 30s each, 3 separate short verified videos)
+    const COOLDOWN_MOVES = [
+      {
+        id: 'c1',
+        svgKey: 'child_pose',
+        name: 'إطالة الضهر والكتف (Child\'s Pose)',
+        seconds: 30,
+        tip: 'اقعد على كعبك وافرد إيدك لقدام وخد نفس عميق.',
+        yt: 'https://www.youtube.com/watch?v=0h2_7BbI4Mk',
+        ytDur: '19 ثانية'
+      },
+      {
+        id: 'c2',
+        svgKey: 'door_chest',
+        name: 'إطالة الصدر على حلق الباب (Doorway Chest Stretch)',
+        seconds: 30,
+        tip: 'حط ساعدك على حلق الباب واطلع خطوة لقدام بالراحة عشان تفرد صدرك وكتفك.',
+        yt: 'https://www.youtube.com/watch?v=O8rJw_TmC1Y',
+        ytDur: '16 ثانية'
+      },
+      {
+        id: 'c3',
+        svgKey: 'quad_stretch',
+        name: 'إطالة الفخد الأمامي (Standing Quad Stretch)',
+        seconds: 30,
+        tip: 'اسند بإيد على الحيط وامسك مشط رجلك لورا وخلّي ركبتينك جنب بعض (30 ثانية لكل رجل).',
+        yt: 'https://www.youtube.com/watch?v=ZKMYmIqnzrU',
+        ytDur: '14 ثانية'
+      }
+    ];
+
+    // --- AUTOMATIC 3-PHASE LOGIC ---
+    function getPhaseInfo(completedWorkouts) {
+      if (completedWorkouts < 12) {
+        return {
+          num: 1,
+          shortName: 'المرحلة 1 - التأسيس',
+          title: 'المرحلة 1 — التأسيس (تمرينة 1 لـ 12)',
+          doneInPhase: completedWorkouts,
+          goalInPhase: 12,
+          nextUnlockText: `فاضلك ${12 - completedWorkouts} تمرينة لفتح المرحلة 2 أوتوماتيك`
+        };
+      }
+      if (completedWorkouts < 24) {
+        return {
+          num: 2,
+          shortName: 'المرحلة 2 - التصعيب التدريجي',
+          title: 'المرحلة 2 — التصعيب التدريجي (تمرينة 13 لـ 24)',
+          doneInPhase: completedWorkouts - 12,
+          goalInPhase: 12,
+          nextUnlockText: `فاضلك ${24 - completedWorkouts} تمرينة لفتح المرحلة 3 أوتوماتيك`
+        };
+      }
+      return {
+        num: 3,
+        shortName: 'المرحلة 3 - المستوى الفولاذي',
+        title: 'المرحلة 3 — المستوى الفولاذي (25+ تمرينة)',
+        doneInPhase: Math.min(12, completedWorkouts - 24),
+        goalInPhase: 12,
+        nextUnlockText: 'أنت وصلت لأعلى مستوى فولاذي! استمر واكسر أرقامك القياسية 🦅'
+      };
+    }
+
+    // B. CORE 7 EXERCISES (Phase-aware, exact verified short videos)
+    function getCoreExercises(phaseNum) {
+      const p = phaseNum || getPhaseInfo(appState.completedWorkouts).num;
+
+      const pushupByPhase = {
+        1: {
+          svgKey: 'pushup_incline',
+          name: 'الضغط المائل (Incline Push-ups)',
+          sets: 3, type: 'reps', target: '6–10 عدات',
+          yt: 'https://www.youtube.com/watch?v=NEdo_I3OuVk', ytDur: '18 ثانية',
+          cues: [
+            'إيدك على سرير أو ترابيزة ثابتة، وكوعك بزاوية 45 درجة.',
+            'شد بطنك ومؤخرتك عشان جسمك يبقى خط مستقيم.',
+            'انزل بالراحة لحد ما صدرك يوازي الحافة واطلع بثبات.'
+          ],
+          shortTip: 'إيدك على سرير ثابت، كوعك 45 درجة، جسمك خط مستقيم، وانزل لحد ما صدرك يوازي الحافة.'
+        },
+        2: {
+          svgKey: 'pushup_flat',
+          name: 'الضغط العادي على الأرض (Push-ups)',
+          sets: 3, type: 'reps', target: '8–12 عدة',
+          yt: 'https://www.youtube.com/watch?v=UIcct-7b6oE', ytDur: '27 ثانية',
+          cues: [
+            'افرد صوابعك على الأرض لتوزيع الوزن وحماية الرسغ.',
+            'كوعك بزاوية 45 درجة مش مفتوح لبره أوي.',
+            'جسمك مفرود كلوح واحد، وانزل بالراحة واطلع.'
+          ],
+          shortTip: 'افرد صوابعك، كوعك بزاوية 45 درجة، جسمك مفرود كلوح واحد، وانزل بالراحة.'
+        },
+        3: {
+          svgKey: 'pushup_decline',
+          name: 'الضغط مع رفع الرجلين (Decline Push-ups)',
+          sets: 3, type: 'reps', target: '8–12 عدة',
+          yt: 'https://www.youtube.com/watch?v=dcV-ATSeryA', ytDur: '12 ثانية',
+          cues: [
+            'ارفع رجلك على سرير أو كرسي ثابت مبيتزحلقش.',
+            'شد بطنك جامد عشان أسفل ضهرك ميتقوسش لتحت.',
+            'كوعك 45 درجة وانزل ببطء وتحكم كامل.'
+          ],
+          shortTip: 'ارفع رجلك على سرير أو كرسي ثابت، شد بطنك جامد عشان أسفل ضهرك ميتقوسش.'
+        }
+      }[p];
+
+      const calfByPhase = p === 1 ? {
+        svgKey: 'calf_both',
+        name: 'تمرين السمانة على الرجلين (Standing Calf Raises)',
+        sets: 3, type: 'reps', target: '12–15 عدة (ثبات 2ث فوق)',
+        yt: 'https://www.youtube.com/watch?v=aTkqz1bso6g', ytDur: '12 ثانية',
+        cues: [
+          'اقف على رجلينك الاتنين واطلع ببطء على طراطيف صوابعك.',
+          'اثبت ثانيتين كاملين فوق في كل عدة.',
+          'انزل بالراحة بدون نط سريع.'
+        ],
+        shortTip: 'اطلع ببطء على طراطيف صوابعك، اثبت ثانيتين فوق وانزل بالراحة بدون نط سريع.'
+      } : {
+        svgKey: 'calf_single',
+        name: 'ثبات السمانة على رجل واحدة (Single-Leg Calf Hold)',
+        sets: 3, type: 'hold', holdSec: p === 2 ? 20 : 30,
+        target: p === 2 ? '20 ثانية لكل رجل' : '30 ثانية لكل رجل',
+        yt: 'https://www.youtube.com/watch?v=RHJIiWflo_s', ytDur: '17 ثانية',
+        cues: [
+          'اسند إيدك بخفة على الحيط للتوازن فقط.',
+          'ارفع كعب رجل واحدة لأعلى نقطة واثبت بدون ما كاحلك يميل.',
+          'بدّل على الرجل التانية بنفس الوقت.'
+        ],
+        shortTip: 'اسند إيدك بخفة على الحيط للتوازن، وارفع كعب رجل واحدة لفوق واثبت.'
+      };
+
+      const towelSec = p === 1 ? 20 : (p === 2 ? 35 : 45);
+      const towelIntensity = p === 1 ? 'شد 7/10' : (p === 2 ? 'شد 8/10' : 'شد قوي 9/10');
+
+      const squatSets = p === 3 ? 4 : 3;
+      const squatTarget = p === 1 ? '10–12 عدة' : (p === 2 ? '15 عدة' : '15 عدة (ثبات ثانية تحت)');
+
+      const wallSec = p === 1 ? 25 : (p === 2 ? 40 : 55);
+
+      const supermanType = p === 1 ? 'reps' : 'hold';
+      const supermanSec = p === 2 ? 25 : 35;
+      const supermanTarget = p === 1 ? '10 عدات (أو ثبات 15ث)' : (p === 2 ? '25 ثانية ثبات' : '35 ثانية ثبات');
+
+      const plankSec = p === 1 ? 25 : (p === 2 ? 40 : 55);
+      const plankTarget = p === 1 ? '25 ثانية (على ركبتك أول أسبوع لو تقيل)' : `${plankSec} ثانية`;
+
+      return [
+        {
+          id: 'ex1',
+          muscles: 'الصدر • الكتف • الدراع',
+          upgradeNote: 'المرحلة 2: ضغط عادي على الأرض (27ث) • المرحلة 3: ضغط برفع الرجلين (12ث)',
+          ...pushupByPhase
+        },
+        {
+          id: 'ex2',
+          svgKey: 'towel_row',
+          name: 'سحب الفوطة الثابت (Isometric Towel Row)',
+          muscles: 'الضهر العلوي • البايسبس • القبضة والأعصاب',
+          sets: 3, type: 'hold', holdSec: towelSec, target: `${towelSec} ثانية (${towelIntensity})`,
+          yt: 'https://www.youtube.com/watch?v=vQn-kP3mS8E', ytDur: '12 ثانية',
+          cues: [
+            'اقف في نص فوطة متينة واتني ركبتك حاجة بسيطة.',
+            'خلي ضهرك مفرود تماماً واسحب بالكوع لورا وفوق.',
+            `شد بمجهود (${towelIntensity}) واتنفس بانتظام متحبسش نفسك.`
+          ],
+          shortTip: 'اقف في نص فوطة متينة، اتني ركبتك حاجة بسيطة، ضهرك مفرود، اسحب بالكوع لورا وفوق، واتنفس بانتظام.',
+          upgradeNote: 'المرحلة 2: 35 ثانية (شد 8/10) • المرحلة 3: 45 ثانية (شد قوي 9/10)'
+        },
+        {
+          id: 'ex3',
+          svgKey: 'squat',
+          name: 'السكوات بوزن الجسم (Bodyweight Squat)',
+          muscles: 'الفخد • الأرداف • أساس الرجل',
+          sets: squatSets, type: 'reps', target: squatTarget,
+          yt: 'https://www.youtube.com/watch?v=eFEVKmp3M4g', ytDur: '29 ثانية',
+          cues: [
+            'رجلك بعرض كتفك وصوابعك لبره حاجة بسيطة وصدرك مرفوع.',
+            'انزل بالراحة كأنك بتقعد على كرسي وركبتك متدخلش لجوه.',
+            'خلي كعبك ثابت بالكامل على الأرض طول الحركة.'
+          ],
+          shortTip: 'رجلك بعرض كتفك وصوابعك لبره حاجة بسيطة، صدرك مرفوع، انزل كأنك بتقعد على كرسي وكعبك ثابت.',
+          upgradeNote: 'المرحلة 2: 3 × 15 عدة • المرحلة 3: 4 × 15 عدة مع ثبات ثانية تحت'
+        },
+        {
+          id: 'ex4',
+          svgKey: 'wall_sit',
+          name: 'الثبات على الحيط (Wall Sit)',
+          muscles: 'أوتار الركبة • قوة الفخد والأعصاب',
+          sets: 3, type: 'hold', holdSec: wallSec, target: `${wallSec} ثانية`,
+          yt: 'https://www.youtube.com/watch?v=mDdLC-yKudY', ytDur: '15 ثانية',
+          cues: [
+            'ضهرك لازق بالكامل في الحيط وفخدك موازي للأرض.',
+            'ركبتك بزاوية 90 درجة وكعبك تحت ركبتك.',
+            'متضغطش بإيدك على ركبتك أبداً، واتنفس بهدوء.'
+          ],
+          shortTip: 'ضهرك لازق بالكامل في الحيط، ركبتك زاوية 90 درجة، متضغطش بإيدك على ركبتك، واتنفس بهدوء.',
+          upgradeNote: 'المرحلة 2: 3 × 40 ثانية • المرحلة 3: 3 × 55 ثانية'
+        },
+        {
+          id: 'ex5',
+          muscles: 'السمانة • وتر أخيل والكاحل',
+          upgradeNote: 'المرحلة 2: ثبات على رجل واحدة 20ث لكل رجل (17ث) • المرحلة 3: 30ث لكل رجل',
+          ...calfByPhase
+        },
+        {
+          id: 'ex6',
+          svgKey: 'superman',
+          name: 'تمرين سوبرمان للضهر (Superman Exercise)',
+          muscles: 'الضهر كله • استقامة العمود الفقري',
+          sets: 3, type: supermanType, holdSec: supermanType === 'hold' ? supermanSec : 15, target: supermanTarget,
+          yt: 'https://www.youtube.com/watch?v=ZH0FS5Gp_eg', ytDur: '10 ثواني',
+          cues: [
+            'نام على بطنك ومد إيدك لقدام ورجلك لورا.',
+            'بص للأرض طول الوقت عشان رقبتك متتعبش.',
+            'ارفع صدرك ورجلك حاجة بسيطة لفوق بهدوء وتحكم.'
+          ],
+          shortTip: 'نام على بطنك، بص للأرض عشان رقبتك متتعبش، ارفع صدرك ورجلك حاجة بسيطة بهدوء.',
+          upgradeNote: 'المرحلة 2: 3 × 25 ثانية ثبات • المرحلة 3: 3 × 35 ثانية ثبات'
+        },
+        {
+          id: 'ex7',
+          svgKey: p === 1 ? 'plank_knee' : 'plank_full',
+          name: 'تمرين البلانك (Plank)',
+          muscles: 'البطن • الوسط • ثبات الأعصاب',
+          sets: 3, type: 'hold', holdSec: plankSec, target: plankTarget,
+          yt: 'https://www.youtube.com/watch?v=3n8ecRuE1dY', ytDur: '16 ثانية',
+          cues: [
+            'ساعدك تحت كتفك مباشرة (وابدأ على ركبتك أول أسبوع لو تقيل).',
+            'شد بطنك ومؤخرتك جامد عشان أسفل ضهرك ميسقطش لتحت.',
+            'اتنفس طبيعي ومنتظم طول مدة الثبات.'
+          ],
+          shortTip: 'ساعدك تحت كتفك مباشرة، شد بطنك ومؤخرتك عشان أسفل ضهرك ميسقطش، واتنفس طبيعي.',
+          upgradeNote: 'المرحلة 2: 3 × 40 ثانية كامل • المرحلة 3: 3 × 55 ثانية كامل'
+        }
+      ];
+    }
+
+    // --- CLEAN CUSTOM INLINE SVG POSTURE DIAGRAMS FOR EVERY SINGLE MOVEMENT ---
+    function getSVG(key, compact = false) {
+      const hClass = compact ? 'w-full h-24' : 'w-full h-36';
+      const bg = '#07150d';
+      const fl = '#1d402c';
+      const fg = '#ecfdf5';
+      const em = '#10b981';
+      const lm = '#a3e635';
+      const mt = '#34d399';
+
+      const map = {
+        /* Warm-up SVGs */
+        arm_circles: `<svg viewBox="0 0 280 120" class="${hClass}" fill="none"><rect width="280" height="120" rx="14" fill="${bg}"/><circle cx="140" cy="24" r="9" fill="${lm}"/><line x1="140" y1="35" x2="140" y2="76" stroke="${fg}" stroke-width="7" stroke-linecap="round"/><line x1="90" y1="48" x2="190" y2="48" stroke="${fg}" stroke-width="5.5" stroke-linecap="round"/><circle cx="88" cy="48" r="14" stroke="${em}" stroke-width="2.2" stroke-dasharray="4 3"/><circle cx="192" cy="48" r="14" stroke="${em}" stroke-width="2.2" stroke-dasharray="4 3"/><line x1="140" y1="76" x2="128" y2="108" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><line x1="140" y1="76" x2="152" y2="108" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><text x="140" y="116" fill="${lm}" font-size="10" font-weight="800" text-anchor="middle" font-family="Cairo">دوائر الكتاف لقدام ولورا</text></svg>`,
+        wrist_circles: `<svg viewBox="0 0 280 120" class="${hClass}" fill="none"><rect width="280" height="120" rx="14" fill="${bg}"/><line x1="80" y1="68" x2="124" y2="56" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><line x1="200" y1="68" x2="156" y2="56" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><circle cx="140" cy="56" r="15" fill="#132a1c" stroke="${lm}" stroke-width="3"/><path d="M120 34 A26 26 0 0 1 160 34" stroke="${em}" stroke-width="2.5" stroke-linecap="round"/><path d="M160 78 A26 26 0 0 1 120 78" stroke="${em}" stroke-width="2.5" stroke-linecap="round"/><text x="140" y="108" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">شبّك صوابعك ولف الرسغ دوائر واسعة</text></svg>`,
+        trunk_rot: `<svg viewBox="0 0 280 120" class="${hClass}" fill="none"><rect width="280" height="120" rx="14" fill="${bg}"/><circle cx="140" cy="22" r="9" fill="${lm}"/><line x1="140" y1="33" x2="140" y2="74" stroke="${fg}" stroke-width="7.5" stroke-linecap="round"/><line x1="104" y1="48" x2="176" y2="48" stroke="${fg}" stroke-width="5.5" stroke-linecap="round"/><path d="M98 62 Q140 76 182 62" stroke="${lm}" stroke-width="2.5" stroke-dasharray="4 3"/><line x1="140" y1="74" x2="126" y2="104" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><line x1="140" y1="74" x2="154" y2="104" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><text x="140" y="116" fill="${lm}" font-size="10" font-weight="800" text-anchor="middle" font-family="Cairo">لف الوسط يمين وشمال بسلاسة</text></svg>`,
+        knee_circles: `<svg viewBox="0 0 280 120" class="${hClass}" fill="none"><rect width="280" height="120" rx="14" fill="${bg}"/><line x1="30" y1="106" x2="250" y2="106" stroke="${fl}" stroke-width="2"/><circle cx="140" cy="22" r="8.5" fill="${lm}"/><line x1="140" y1="32" x2="148" y2="60" stroke="${fg}" stroke-width="7" stroke-linecap="round"/><polyline points="148,60 132,80 140,104" stroke="${fg}" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="132" cy="80" rx="18" ry="8" stroke="${em}" stroke-width="2.4" stroke-dasharray="4 3"/><text x="140" y="116" fill="${lm}" font-size="10" font-weight="800" text-anchor="middle" font-family="Cairo">دوائر هادية بالركب يمين وشمال</text></svg>`,
+
+        /* Core 7 SVGs */
+        pushup_incline: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><line x1="16" y1="122" x2="264" y2="122" stroke="${fl}" stroke-width="2.5"/><rect x="184" y="72" width="68" height="12" rx="4" fill="#132a1c" stroke="${em}" stroke-width="1.8"/><rect x="192" y="84" width="8" height="38" fill="#1d402c"/><rect x="236" y="84" width="8" height="38" fill="#1d402c"/><line x1="56" y1="118" x2="176" y2="36" stroke="${lm}" stroke-width="1.6" stroke-dasharray="5 4" opacity="0.85"/><circle cx="176" cy="36" r="10" fill="${lm}"/><line x1="166" y1="45" x2="112" y2="83" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><line x1="112" y1="83" x2="62" y2="118" stroke="${fg}" stroke-width="7" stroke-linecap="round"/><line x1="160" y1="49" x2="190" y2="72" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><path d="M148 58 A16 16 0 0 0 169 65" stroke="${mt}" stroke-width="2.6"/><text x="146" y="88" fill="${lm}" font-size="11" font-weight="900" font-family="Cairo">45° كوع</text><text x="218" y="104" fill="${mt}" font-size="10" font-weight="700" text-anchor="middle" font-family="Cairo">سرير ثابت</text><text x="140" y="139" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">الضغط المائل • جسمك خط مستقيم</text></svg>`,
+        pushup_flat: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><line x1="16" y1="116" x2="264" y2="116" stroke="${fl}" stroke-width="2.5"/><line x1="58" y1="74" x2="216" y2="74" stroke="${lm}" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.8"/><circle cx="206" cy="64" r="10" fill="${lm}"/><line x1="194" y1="72" x2="64" y2="110" stroke="${fg}" stroke-width="8.5" stroke-linecap="round"/><line x1="186" y1="76" x2="192" y2="113" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><text x="140" y="54" fill="${mt}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">كوعك 45° • صوابعك مفرودة</text><text x="140" y="136" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">الضغط العادي على الأرض (جسمك لوح واحد)</text></svg>`,
+        pushup_decline: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><line x1="16" y1="120" x2="264" y2="120" stroke="${fl}" stroke-width="2.5"/><rect x="30" y="76" width="54" height="44" rx="4" fill="#132a1c" stroke="${em}" stroke-width="1.8"/><circle cx="212" cy="88" r="9.5" fill="${lm}"/><line x1="200" y1="88" x2="72" y2="74" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><line x1="192" y1="88" x2="198" y2="117" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><text x="57" y="102" fill="${mt}" font-size="9.5" font-weight="800" text-anchor="middle" font-family="Cairo">كرسي ثابت</text><text x="140" y="138" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">الضغط برفع الرجلين • شد بطنك جامد</text></svg>`,
+        towel_row: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><line x1="20" y1="122" x2="260" y2="122" stroke="${fl}" stroke-width="2.5"/><path d="M108 120 L172 120" stroke="${em}" stroke-width="5" stroke-linecap="round"/><line x1="112" y1="120" x2="112" y2="70" stroke="${em}" stroke-width="4" stroke-linecap="round"/><line x1="168" y1="120" x2="168" y2="70" stroke="${em}" stroke-width="4" stroke-linecap="round"/><circle cx="140" cy="26" r="10" fill="${lm}"/><line x1="140" y1="38" x2="140" y2="78" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><polyline points="140,46 116,56 112,70" stroke="${fg}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="140,46 164,56 168,70" stroke="${fg}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="140,78 124,100 128,119" stroke="${fg}" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="140,78 156,100 152,119" stroke="${fg}" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M88 92 L88 52 M88 52 L82 60 M88 52 L94 60" stroke="${lm}" stroke-width="2.5" stroke-linecap="round"/><path d="M192 92 L192 52 M192 52 L186 60 M192 52 L198 60" stroke="${lm}" stroke-width="2.5" stroke-linecap="round"/><text x="58" y="74" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">شد لفوق</text><text x="222" y="74" fill="${mt}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">فوطة متينة</text><text x="140" y="138" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">ضهر مفرود تماماً • متحبسش نفسك</text></svg>`,
+        squat: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><line x1="20" y1="122" x2="260" y2="122" stroke="${fl}" stroke-width="2.5"/><path d="M180 88 L210 88 L210 122" stroke="#25543a" stroke-width="2" stroke-dasharray="4 4"/><circle cx="136" cy="36" r="10" fill="${lm}"/><line x1="140" y1="48" x2="162" y2="85" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><line x1="143" y1="54" x2="94" y2="52" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><polyline points="162,85 118,85 124,119" stroke="${fg}" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="112" y1="120" x2="134" y2="120" stroke="${em}" stroke-width="4.5" stroke-linecap="round"/><path d="M74 58 L74 96 M74 96 L68 88 M74 96 L80 88" stroke="${lm}" stroke-width="2.5" stroke-linecap="round"/><text x="140" y="138" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">كعبك ثابت على الأرض • صدرك مرفوع</text></svg>`,
+        wall_sit: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><rect x="188" y="14" width="16" height="108" rx="3" fill="#132a1c" stroke="${em}" stroke-width="1.8"/><line x1="24" y1="122" x2="240" y2="122" stroke="${fl}" stroke-width="2.5"/><circle cx="176" cy="32" r="10" fill="${lm}"/><line x1="178" y1="44" x2="178" y2="84" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><line x1="174" y1="52" x2="126" y2="52" stroke="${fg}" stroke-width="5.5" stroke-linecap="round"/><polyline points="178,84 128,84 128,119" stroke="${fg}" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M142 84 L142 98 L128 98" stroke="${lm}" stroke-width="2.4"/><text x="152" y="110" fill="${lm}" font-size="12" font-weight="900" font-family="Cairo">90°</text><text x="226" y="70" fill="${mt}" font-size="11" font-weight="800" text-anchor="middle" font-family="Cairo">الحيط</text><text x="140" y="138" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">ضهرك لازق في الحيط • إيدك بعيد عن ركبتك</text></svg>`,
+        calf_both: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><line x1="20" y1="122" x2="260" y2="122" stroke="${fl}" stroke-width="2.5"/><circle cx="140" cy="20" r="9.5" fill="${lm}"/><line x1="140" y1="31" x2="140" y2="74" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><line x1="140" y1="42" x2="122" y2="66" stroke="${fg}" stroke-width="5.5" stroke-linecap="round"/><line x1="140" y1="42" x2="158" y2="66" stroke="${fg}" stroke-width="5.5" stroke-linecap="round"/><line x1="135" y1="74" x2="135" y2="110" stroke="${fg}" stroke-width="6.5" stroke-linecap="round"/><line x1="145" y1="74" x2="145" y2="110" stroke="${fg}" stroke-width="6.5" stroke-linecap="round"/><polyline points="135,110 128,120 122,120" stroke="${em}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="145,110 152,120 158,120" stroke="${em}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M186 116 L186 84 M186 84 L180 92 M186 84 L192 92" stroke="${lm}" stroke-width="2.5" stroke-linecap="round"/><text x="222" y="102" fill="${lm}" font-size="10.5" font-weight="900" text-anchor="middle" font-family="Cairo">ثبات 2ث</text><text x="140" y="138" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">اطلع ببطء على طراطيف صوابعك واثبت ثانيتين</text></svg>`,
+        calf_single: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><rect x="194" y="14" width="14" height="108" rx="3" fill="#132a1c" stroke="${em}" stroke-width="1.8"/><line x1="20" y1="122" x2="250" y2="122" stroke="${fl}" stroke-width="2.5"/><circle cx="142" cy="24" r="9.5" fill="${lm}"/><line x1="142" y1="35" x2="142" y2="76" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><line x1="146" y1="45" x2="192" y2="48" stroke="${fg}" stroke-width="5.5" stroke-linecap="round"/><line x1="142" y1="76" x2="142" y2="110" stroke="${fg}" stroke-width="7" stroke-linecap="round"/><polyline points="142,110 148,120 156,120" stroke="${em}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><polyline points="140,76 120,92 128,104" stroke="${mt}" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><text x="140" y="138" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">ثبات السمانة على رجل واحدة (ساند على الحيط)</text></svg>`,
+        superman: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><line x1="20" y1="112" x2="260" y2="112" stroke="${fl}" stroke-width="3" stroke-linecap="round"/><circle cx="192" cy="78" r="9.5" fill="${lm}"/><path d="M182 88 Q142 108 105 104 L54 84" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><line x1="178" y1="89" x2="228" y2="68" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><path d="M234 92 L234 70 M234 70 L229 76 M234 70 L239 76" stroke="${em}" stroke-width="2.4" stroke-linecap="round"/><path d="M52 104 L52 82 M52 82 L47 88 M52 82 L57 88" stroke="${em}" stroke-width="2.4" stroke-linecap="round"/><text x="140" y="136" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">بص للأرض • ارفع صدرك ورجلك حاجة بسيطة</text></svg>`,
+        plank_knee: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><line x1="20" y1="116" x2="260" y2="116" stroke="${fl}" stroke-width="2.5"/><line x1="88" y1="72" x2="214" y2="72" stroke="${lm}" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.8"/><circle cx="206" cy="74" r="10" fill="${lm}"/><line x1="194" y1="80" x2="98" y2="112" stroke="${fg}" stroke-width="8.5" stroke-linecap="round"/><line x1="98" y1="112" x2="64" y2="95" stroke="${fg}" stroke-width="6.5" stroke-linecap="round"/><circle cx="98" cy="113" r="5" fill="${em}"/><polyline points="184,82 184,113 212,113" stroke="${fg}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="102" y="102" fill="${mt}" font-size="10" font-weight="800" text-anchor="middle" font-family="Cairo">على الركب أول أسبوع</text><text x="140" y="136" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">ساعدك تحت كتفك • شد بطنك ومؤخرتك وتنفس</text></svg>`,
+        plank_full: `<svg viewBox="0 0 280 145" class="${hClass}" fill="none"><rect width="280" height="145" rx="14" fill="${bg}"/><line x1="20" y1="116" x2="260" y2="116" stroke="${fl}" stroke-width="2.5"/><line x1="56" y1="68" x2="218" y2="68" stroke="${lm}" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.8"/><circle cx="208" cy="72" r="10" fill="${lm}"/><line x1="196" y1="78" x2="62" y2="110" stroke="${fg}" stroke-width="8.5" stroke-linecap="round"/><polyline points="186,80 186,113 214,113" stroke="${fg}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="140" cy="92" rx="22" ry="7" stroke="${em}" stroke-width="2.4" stroke-dasharray="3 2"/><text x="140" y="56" fill="${mt}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">جسمك مستقيم (أسفل ضهرك ميسقطش)</text><text x="140" y="136" fill="${lm}" font-size="10.5" font-weight="800" text-anchor="middle" font-family="Cairo">البلانك الكامل • اتنفس طبيعي ومنتظم</text></svg>`,
+
+        /* Cooldown SVGs */
+        child_pose: `<svg viewBox="0 0 280 120" class="${hClass}" fill="none"><rect width="280" height="120" rx="14" fill="${bg}"/><line x1="20" y1="96" x2="260" y2="96" stroke="${fl}" stroke-width="2.5"/><circle cx="176" cy="78" r="9" fill="${lm}"/><path d="M168 78 Q128 60 88 86 L68 94" stroke="${fg}" stroke-width="8" stroke-linecap="round"/><line x1="184" y1="86" x2="232" y2="93" stroke="${fg}" stroke-width="5.5" stroke-linecap="round"/><line x1="88" y1="94" x2="122" y2="94" stroke="${em}" stroke-width="6" stroke-linecap="round"/><text x="140" y="114" fill="${lm}" font-size="10" font-weight="800" text-anchor="middle" font-family="Cairo">وضع الطفل • افرد ضهرك وكتفك وخد نفس عميق</text></svg>`,
+        door_chest: `<svg viewBox="0 0 280 120" class="${hClass}" fill="none"><rect width="280" height="120" rx="14" fill="${bg}"/><rect x="176" y="12" width="12" height="90" rx="2" fill="#132a1c" stroke="${em}" stroke-width="1.8"/><circle cx="136" cy="24" r="8.5" fill="${lm}"/><line x1="136" y1="34" x2="132" y2="74" stroke="${fg}" stroke-width="7.5" stroke-linecap="round"/><polyline points="136,44 176,44 176,24" stroke="${fg}" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="132" y1="74" x2="152" y2="100" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><line x1="132" y1="74" x2="114" y2="100" stroke="${fg}" stroke-width="6" stroke-linecap="round"/><text x="140" y="114" fill="${lm}" font-size="10" font-weight="800" text-anchor="middle" font-family="Cairo">ساعدك على حلق الباب وخطوة لقدام بالراحة</text></svg>`,
+        quad_stretch: `<svg viewBox="0 0 280 120" class="${hClass}" fill="none"><rect width="280" height="120" rx="14" fill="${bg}"/><rect x="192" y="12" width="12" height="90" rx="2" fill="#132a1c" stroke="${em}" stroke-width="1.8"/><circle cx="144" cy="22" r="8.5" fill="${lm}"/><line x1="144" y1="32" x2="144" y2="70" stroke="${fg}" stroke-width="7.5" stroke-linecap="round"/><line x1="148" y1="42" x2="190" y2="44" stroke="${fg}" stroke-width="5" stroke-linecap="round"/><line x1="144" y1="70" x2="144" y2="102" stroke="${fg}" stroke-width="6.5" stroke-linecap="round"/><polyline points="142,70 136,88 120,76" stroke="${mt}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><line x1="138" y1="44" x2="120" y2="76" stroke="${fg}" stroke-width="5" stroke-linecap="round"/><text x="140" y="114" fill="${lm}" font-size="10" font-weight="800" text-anchor="middle" font-family="Cairo">اسند على الحيط وامسك مشط رجلك لورا</text></svg>`
+      };
+
+      return map[key] || map.plank_knee;
+    }
+
+    // --- PERSISTENT STATE ---
+    function defaultState() {
+      return {
+        completedWorkouts: 0,
+        xp: 0,
+        streak: 0,
+        totalHoldSec: 0,
+        muted: false,
+        lastWorkoutDate: null,
+        completedDates: [],
+        badges: [],
+        history: [],
+        daily: {},
+        prs: {
+          pushups: { best: 0, prev: 0 },
+          wallsit: { best: 0, prev: 0 },
+          plank:   { best: 0, prev: 0 },
+          squats:  { best: 0, prev: 0 }
+        }
+      };
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return defaultState();
+        const p = JSON.parse(raw);
+        const d = defaultState();
+        return {
+          ...d,
+          ...p,
+          prs: { ...d.prs, ...(p.prs || {}) },
+          completedDates: Array.isArray(p.completedDates) ? p.completedDates : [],
+          badges: Array.isArray(p.badges) ? p.badges : [],
+          history: Array.isArray(p.history) ? p.history : [],
+          daily: p.daily || {}
+        };
+      } catch (e) {
+        return defaultState();
+      }
+    }
+
+    let appState = loadState();
+    let activeTab = 'home';
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {}
+      updateHeader();
+    }
+
+    function getDateKey(d = new Date()) {
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function getTodayDaily() {
+      const k = getDateKey();
+      if (!appState.daily[k]) appState.daily[k] = { water: 0, waterXp: false, sleepDone: false };
+      return appState.daily[k];
+    }
+
+    function getNextWorkoutDayName(todayJsDay) {
+      const names = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+      for (let i = 1; i <= 7; i++) {
+        const d = (todayJsDay + i) % 7;
+        if (WORKOUT_DAYS.includes(d)) return names[d];
+      }
+      return 'الأحد';
+    }
+
+    function getRank() {
+      let curr = RANKS[0], next = RANKS[1];
+      for (let i = 0; i < RANKS.length; i++) {
+        if (appState.xp >= RANKS[i].minXP) {
+          curr = RANKS[i];
+          next = RANKS[i + 1] || null;
+        }
+      }
+      return { curr, next };
+    }
+
+    function unlockBadge(id) {
+      if (!appState.badges.includes(id)) {
+        appState.badges.push(id);
+        return true;
+      }
+      return false;
+    }
+
+    function getWorkoutsLast7Days() {
+      const cut = new Date();
+      cut.setDate(cut.getDate() - 6);
+      cut.setHours(0, 0, 0, 0);
+      return appState.history.filter(h => new Date(h.iso) >= cut).length;
+    }
+
+    // --- WEB AUDIO API + HAPTIC VIBRATION ---
+    let audioCtx = null;
+    function getAudioCtx() {
+      try {
+        if (!audioCtx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) audioCtx = new AC();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+        return audioCtx;
+      } catch (e) { return null; }
+    }
+
+    function playTone(freq = 540, dur = 0.12, type = 'sine', vol = 0.22) {
+      if (appState.muted) return;
+      try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(vol, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + dur);
+      } catch (e) {}
+    }
+
+    function buzz(pat) {
+      try { if (navigator.vibrate) navigator.vibrate(pat); } catch (e) {}
+    }
+
+    const SFX = {
+      tick: () => { playTone(580, 0.08, 'sine', 0.14); buzz(20); },
+      start: () => { playTone(880, 0.20, 'triangle', 0.22); buzz([45, 30, 65]); },
+      done: () => {
+        playTone(660, 0.12, 'triangle', 0.22);
+        setTimeout(() => playTone(990, 0.22, 'triangle', 0.24), 125);
+        buzz([65, 35, 100]);
+      },
+      restOver: () => {
+        playTone(740, 0.14, 'sine', 0.22);
+        setTimeout(() => playTone(1046, 0.24, 'triangle', 0.25), 140);
+        buzz([90, 45, 90]);
+      },
+      victory: () => {
+        [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => playTone(f, 0.22, 'triangle', 0.25), i * 125));
+        buzz([90, 45, 90, 45, 200]);
+      }
+    };
+
+    function toggleMute() {
+      appState.muted = !appState.muted;
+      saveState();
+      showToast(appState.muted ? 'تم كتم صوت المؤقت 🔇' : 'تم تشغيل صوت المؤقت 🔊');
+      if (!appState.muted) SFX.tick();
+    }
+
+    // --- TOAST & MODALS ---
+    let toastTimer = null;
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.add('hidden'), 2700);
+    }
+
+    function openConfirmModal(title, text, actionsHtml) {
+      document.getElementById('confirmTitle').textContent = title;
+      document.getElementById('confirmText').textContent = text;
+      document.getElementById('confirmActions').innerHTML = actionsHtml;
+      document.getElementById('confirmModal').classList.remove('hidden');
+    }
+    function closeConfirmModal() { document.getElementById('confirmModal').classList.add('hidden'); }
+
+    function openSafetyModal() {
+      document.getElementById('safetyModal').classList.remove('hidden');
+      SFX.tick();
+    }
+    function closeSafetyModal() { document.getElementById('safetyModal').classList.add('hidden'); }
+
+    // --- ANTI-LAZINESS SPARK MODAL ---
+    let sparkSec = 60, sparkInt = null;
+    function openSparkModal() {
+      clearInterval(sparkInt);
+      sparkInt = null;
+      sparkSec = 60;
+      document.getElementById('sparkQuote').textContent = SPARK_QUOTES[Math.floor(Math.random() * SPARK_QUOTES.length)];
+      document.getElementById('sparkToggleBtn').textContent = 'ابدأ الـ 60 ثانية ⚡';
+      updateSparkUI();
+      document.getElementById('sparkModal').classList.remove('hidden');
+      SFX.tick();
+    }
+    function closeSparkModal() {
+      clearInterval(sparkInt);
+      sparkInt = null;
+      document.getElementById('sparkModal').classList.add('hidden');
+    }
+    function updateSparkUI() {
+      document.getElementById('sparkClock').textContent = `${String(Math.floor(sparkSec / 60)).padStart(2, '0')}:${String(sparkSec % 60).padStart(2, '0')}`;
+      const cue = document.getElementById('sparkCue');
+      if (sparkSec > 40) cue.textContent = '1️⃣ قوم اقف على رجلك دلوقتي وسيب الكنبة/السرير!';
+      else if (sparkSec > 20) cue.textContent = '2️⃣ لف كتافك لورا 10 مرات بالراحة!';
+      else if (sparkSec > 0) cue.textContent = '3️⃣ خد 3 أنفاس عميقة.. كده كسرت الكسل خلاص!';
+      else cue.textContent = '🔥 عاش يا صقر! دوس الزرار الأخضر وابدأ التسخين فوراً!';
+    }
+    function toggleSparkTimer() {
+      const btn = document.getElementById('sparkToggleBtn');
+      if (sparkInt) {
+        clearInterval(sparkInt);
+        sparkInt = null;
+        btn.textContent = 'كمّل العداد ⚡';
+        return;
+      }
+      if (sparkSec <= 0) sparkSec = 60;
+      SFX.start();
+      btn.textContent = 'إيقاف مؤقت ⏸';
+      sparkInt = setInterval(() => {
+        sparkSec--;
+        if (sparkSec <= 3 && sparkSec > 0) SFX.tick();
+        updateSparkUI();
+        if (sparkSec <= 0) {
+          clearInterval(sparkInt);
+          sparkInt = null;
+          SFX.done();
+          btn.textContent = 'خلصت! انطلق للتسخين 🚀';
+        }
+      }, 1000);
+    }
+    function goFromSparkToWorkout() {
+      if (unlockBadge('spark_win')) {
+        appState.xp += 15;
+        saveState();
+        showToast('وسام جديد: قاهر الكسل 🦅 (+15 XP)');
+      }
+      closeSparkModal();
+      startLiveWorkout();
+    }
+
+    // --- HEADER & NAVIGATION ---
+    function updateHeader() {
+      const p = getPhaseInfo(appState.completedWorkouts);
+      document.getElementById('hdrPhase').textContent = `المرحلة ${p.num}`;
+      document.getElementById('hdrXP').textContent = `${appState.xp} XP`;
+      document.getElementById('hdrStreak').textContent = `${appState.streak} 🔥`;
+      document.getElementById('muteBtn').textContent = appState.muted ? '🔇' : '🔊';
+    }
+
+    function switchTab(tab) {
+      if (activeTab === 'workout' && tab !== 'workout') pauseWorkoutTimers();
+      activeTab = tab;
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        const on = b.dataset.tab === tab;
+        b.classList.toggle('text-limeSpark', on);
+        b.classList.toggle('bg-emeraldPri/15', on);
+        b.classList.toggle('text-gray-400', !on);
+      });
+      renderCurrentTab();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderCurrentTab() {
+      const main = document.getElementById('appMain');
+      main.className = 'main-pad fade-slide';
+      if (activeTab === 'home') renderHome(main);
+      else if (activeTab === 'workout') renderWorkout(main);
+      else if (activeTab === 'plan') renderPlan(main);
+      else if (activeTab === 'progress') renderProgress(main);
+    }
+
+    /* =========================================================================
+       TAB 1: HOME (الرئيسية)
+       ========================================================================= */
+    function renderHome(el) {
+      const now = new Date();
+      const todayJs = now.getDay();
+      const isTrainDay = WORKOUT_DAYS.includes(todayJs);
+      const nextDay = getNextWorkoutDayName(todayJs);
+      const todayAr = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'][todayJs];
+      const todayKey = getDateKey(now);
+      const doneToday = appState.completedDates.includes(todayKey);
+
+      const pInfo = getPhaseInfo(appState.completedWorkouts);
+      const pPct = Math.min(100, Math.round((pInfo.doneInPhase / pInfo.goalInPhase) * 100));
+      const { curr } = getRank();
+      const daily = getTodayDaily();
+
+      const doneDays7 = new Set();
+      const sevenAgo = new Date();
+      sevenAgo.setDate(sevenAgo.getDate() - 6);
+      sevenAgo.setHours(0, 0, 0, 0);
+      appState.history.forEach(h => {
+        const dt = new Date(h.iso);
+        if (dt >= sevenAgo) doneDays7.add(dt.getDay());
+      });
+
+      el.innerHTML = `
+        <div class="space-y-4">
+          <!-- Welcome + Strict Today Banner -->
+          <div class="card-tactical rounded-3xl p-5 space-y-4">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-xs font-bold text-textSoft/80">النهارده ${todayAr} • صقر (17 سنة)</p>
+                <h2 class="text-2xl font-black text-textMain mt-0.5">أهلاً يا <span class="text-limeSpark">صقر</span> 🦅</h2>
+              </div>
+              <div class="bg-bgDeep/85 border border-emeraldPri/35 rounded-2xl px-3 py-2 text-center shrink-0">
+                <div class="text-xl leading-none">${curr.icon}</div>
+                <div class="text-[10px] font-black text-limeSpark mt-1">${curr.title}</div>
+              </div>
+            </div>
+
+            ${doneToday ? `
+              <div class="bg-emeraldPri/20 border border-limeSpark/60 rounded-2xl p-4 space-y-1.5">
+                <div class="text-sm font-black text-limeSpark">✅ بطل يا صقر! خلصت تمرينة النهارده!</div>
+                <p class="text-xs font-bold text-textMain leading-relaxed">
+                  دلوقتي اشرب مية كويس ونام 7–9 ساعات عشان عضلاتك وأعصابك تتبني. تمرينك الجاي يوم <span class="text-limeSpark">${nextDay}</span>.
+                </p>
+              </div>
+            ` : isTrainDay ? `
+              <div class="bg-emeraldPri/15 border border-emeraldPri/55 rounded-2xl p-4 space-y-3">
+                <div>
+                  <span class="inline-block text-[11px] font-black px-2.5 py-0.5 rounded-full bg-limeSpark text-bgDeep mb-1.5">أمر النهارده</span>
+                  <h3 class="text-base font-black text-textMain">النهارده يوم تمرينك يا صقر 🔥</h3>
+                  <p class="text-xs font-semibold text-textSoft/90 mt-1">
+                    4 حركات تسخين (3 دقايق) ← 7 تمارين مقفولين ← 3 إطالات تهدئة. كل حركة ليها فيديو قصير (7–29 ثانية) بدون رغي!
+                  </p>
+                </div>
+                <button onclick="startLiveWorkout()" class="w-full py-4 rounded-2xl bg-gradient-to-l from-limeSpark to-emeraldPri text-bgDeep font-black text-base flex items-center justify-center gap-2 glow-emerald active:scale-95 transition">
+                  <span>${session.active && session.stage !== 'complete' ? 'كمّل تمرينة النهارده 🔥' : 'ابدأ تمرينة النهارده 🔥'}</span>
+                </button>
+              </div>
+            ` : `
+              <div class="bg-bgDeep/85 border border-emeraldPri/35 rounded-2xl p-4 space-y-3">
+                <div>
+                  <span class="inline-block text-[11px] font-black px-2.5 py-0.5 rounded-full bg-emeraldPri/25 text-mintHi mb-1.5">يوم راحة</span>
+                  <h3 class="text-base font-black text-textMain">النهارده يوم راحة وبناء عضل 🔋</h3>
+                  <p class="text-xs font-semibold text-textSoft/85 mt-1 leading-relaxed">
+                    كل كويس ونام بدري عشان أوتارك وعضلاتك تقوى. تمرينك الجاي يوم <span class="text-limeSpark">${nextDay}</span>.
+                  </p>
+                </div>
+                <button onclick="startLiveWorkout()" class="w-full py-3 rounded-2xl bg-bgSurface border border-emeraldPri/35 text-textSoft font-extrabold text-xs active:scale-95 transition">
+                  فاتك يوم وعايز تتمرن دلوقتي؟ ابدأ التمرينة 🔥
+                </button>
+              </div>
+            `}
+
+            <!-- Automatic Phase Progress -->
+            <div class="space-y-1.5 pt-0.5">
+              <div class="flex items-center justify-between text-xs font-black">
+                <span class="text-textMain">${pInfo.shortName} (${pInfo.doneInPhase} / ${pInfo.goalInPhase})</span>
+                <span class="text-limeSpark">${pPct}%</span>
+              </div>
+              <div class="w-full h-2.5 bg-bgDeep rounded-full overflow-hidden border border-emeraldPri/25">
+                <div class="h-full bg-gradient-to-l from-limeSpark to-emeraldPri rounded-full transition-all duration-500" style="width:${pPct}%"></div>
+              </div>
+              <p class="text-[11px] text-textSoft/75 font-semibold">${pInfo.nextUnlockText}</p>
+            </div>
+          </div>
+
+          <!-- Anti-Laziness Spark Button -->
+          <button onclick="openSparkModal()" class="w-full card-tactical rounded-3xl p-4 border-limeSpark/60 bg-gradient-to-l from-limeSpark/20 via-bgCard to-bgCard flex items-center justify-between gap-3 glow-lime active:scale-[0.98] transition text-right">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-limeSpark text-bgDeep flex items-center justify-center text-2xl font-black shrink-0">⚡</div>
+              <div>
+                <div class="text-base font-black text-textMain">وضع الشرارة ⚡ (لو مكسّل تقوم)</div>
+                <div class="text-xs font-bold text-textSoft mt-0.5">دوس هنا.. عداد 60 ثانية سهل يكسر الكسل حالاً</div>
+              </div>
+            </div>
+            <span class="text-limeSpark text-xl font-black">←</span>
+          </button>
+
+          <!-- Locked 7-Day Weekly Strip -->
+          <div class="card-tactical rounded-3xl p-4 space-y-3">
+            <div>
+              <h3 class="text-sm font-black text-textMain">جدول الأسبوع الثابت 📅</h3>
+              <p class="text-[11px] text-textSoft/75 font-semibold">أيام التمرين: الأحد، الأربعاء، الجمعة • وباقي الأيام راحة</p>
+            </div>
+            <div class="grid grid-cols-7 gap-1.5">
+              ${WEEK_DAYS.map(d => {
+                const train = WORKOUT_DAYS.includes(d.jsDay);
+                const today = d.jsDay === todayJs;
+                const done = doneDays7.has(d.jsDay);
+                return `
+                  <div class="py-2.5 px-1 rounded-2xl text-center border flex flex-col items-center gap-1 ${
+                    train ? 'bg-emeraldPri/20 border-emeraldPri/60 text-textMain' : 'bg-bgDeep/80 border-white/5 text-gray-500'
+                  } ${today ? 'ring-2 ring-limeSpark' : ''}">
+                    <span class="text-[10px] font-black">${d.short}</span>
+                    <span class="text-xs leading-none">${done ? '✅' : (train ? '🔥' : '🔋')}</span>
+                    <span class="text-[9px] font-bold ${train ? 'text-limeSpark' : 'text-gray-500'}">${train ? 'تمرين' : 'راحة'}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Daily Habits (8 Cups Water + 7-9h Sleep) -->
+          <div class="card-tactical rounded-3xl p-4 space-y-3">
+            <h3 class="text-sm font-black text-textMain">عادات يومك السريعة (للنمو والقوة) 🔋</h3>
+
+            <div class="bg-bgDeep/85 rounded-2xl p-3.5 border border-emeraldPri/20 flex items-center justify-between gap-3">
+              <div>
+                <div class="text-xs font-black text-textMain">🌙 نمت 7–9 ساعات؟</div>
+                <div class="text-[11px] text-textSoft/70 mt-0.5">عضلاتك وأعصابك بتقوى وقت النوم</div>
+              </div>
+              <button onclick="toggleSleep()" class="shrink-0 px-3.5 py-2 rounded-xl text-xs font-black transition active:scale-95 ${
+                daily.sleepDone ? 'bg-limeSpark text-bgDeep' : 'bg-bgSurface border border-emeraldPri/35 text-textSoft'
+              }">
+                ${daily.sleepDone ? 'تم ✓' : 'سجّل نومك'}
+              </button>
+            </div>
+
+            <div class="bg-bgDeep/85 rounded-2xl p-3.5 border border-emeraldPri/20 space-y-2.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-textMain">💧 شرب الميه (8 كوبايات)</span>
+                <span class="text-xs font-black ${daily.water >= 8 ? 'text-limeSpark' : 'text-mintHi'}">${daily.water} / 8</span>
+              </div>
+              <div class="grid grid-cols-8 gap-1.5">
+                ${Array.from({ length: 8 }, (_, idx) => {
+                  const on = idx < daily.water;
+                  return `<button onclick="setWater(${idx + 1})" aria-label="كوباية ${idx + 1}" class="aspect-square rounded-xl flex items-center justify-center text-sm border transition active:scale-90 ${
+                    on ? 'bg-emeraldPri/30 border-limeSpark text-white' : 'bg-bgCard border-white/10 text-gray-600'
+                  }">💧</button>`;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Safety Guide Quick Button -->
+          <button onclick="openSafetyModal()" class="w-full card-tactical rounded-3xl p-4 border-emeraldPri/35 flex items-center justify-between gap-3 active:scale-[0.98] transition text-right">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-emeraldPri/20 border border-emeraldPri/40 flex items-center justify-center text-xl shrink-0">🛡️</div>
+              <div>
+                <div class="text-sm font-black text-textMain">دليل الأمان (مهم تقراه قبل ما تبدأ)</div>
+                <div class="text-[11px] font-semibold text-textSoft/80">الفرق بين حرقان العضلة الطبيعي ووجع المفصل + التنفس</div>
+              </div>
+            </div>
+            <span class="text-mintHi font-black text-lg">←</span>
+          </button>
+        </div>
+      `;
+    }
+
+    function toggleSleep() {
+      const d = getTodayDaily();
+      if (!d.sleepDone) {
+        d.sleepDone = true;
+        appState.xp += 10;
+        SFX.tick();
+        showToast('عاش يا صقر! نوم البطل (+10 XP) 🌙');
+      } else {
+        d.sleepDone = false;
+      }
+      saveState();
+      renderCurrentTab();
+    }
+
+    function setWater(num) {
+      const d = getTodayDaily();
+      d.water = (d.water === num) ? num - 1 : num;
+      SFX.tick();
+      if (d.water >= 8 && !d.waterXp) {
+        d.waterXp = true;
+        appState.xp += 10;
+        showToast('ممتاز! كملت 8 كوبايات ميه (+10 XP) 💧');
+      }
+      saveState();
+      renderCurrentTab();
+    }
+
+    /* =========================================================================
+       TAB 2: LIVE GUIDED SESSION (التمرين خطوة بخطوة)
+       ========================================================================= */
+    const REST_DEFAULT = 75;
+
+    let session = {
+      active: false,
+      stage: 'idle', // 'idle' | 'warmup' | 'core' | 'rest' | 'cooldown' | 'complete'
+      phaseNum: 1,
+      startedAt: null,
+      // Warmup
+      warmIdx: 0,
+      warmRem: 45,
+      warmRunning: false,
+      // Core
+      exercises: [],
+      exIdx: 0,
+      setsCompletedMap: {}, // exIdx -> array of booleans for set checkboxes
+      // Hold timer
+      holdTotal: 20,
+      holdRem: 20,
+      holdRunning: false,
+      breatheIn: true,
+      // Rest
+      restTotal: REST_DEFAULT,
+      restRem: REST_DEFAULT,
+      // Cooldown
+      coolIdx: 0,
+      coolRem: 30,
+      coolRunning: false,
+      // Stats
+      setsDone: 0,
+      holdSecEarned: 0,
+      summary: null
+    };
+
+    let timerInt = null;
+    let breatheInt = null;
+
+    function pauseWorkoutTimers() {
+      clearInterval(timerInt);
+      clearInterval(breatheInt);
+      timerInt = null;
+      breatheInt = null;
+      session.warmRunning = false;
+      session.holdRunning = false;
+      session.coolRunning = false;
+    }
+
+    function initSetMap(exercises) {
+      const map = {};
+      exercises.forEach((ex, idx) => {
+        map[idx] = Array.from({ length: ex.sets }, () => false);
+      });
+      return map;
+    }
+
+    function startLiveWorkout() {
+      if (!session.active || session.stage === 'idle' || session.stage === 'complete') {
+        pauseWorkoutTimers();
+        const pInfo = getPhaseInfo(appState.completedWorkouts);
+        const list = getCoreExercises(pInfo.num);
+        session = {
+          active: true,
+          stage: 'warmup',
+          phaseNum: pInfo.num,
+          startedAt: Date.now(),
+          warmIdx: 0,
+          warmRem: WARMUP_MOVES[0].seconds,
+          warmRunning: false,
+          exercises: list,
+          exIdx: 0,
+          setsCompletedMap: initSetMap(list),
+          holdTotal: list[0].holdSec || 20,
+          holdRem: list[0].holdSec || 20,
+          holdRunning: false,
+          breatheIn: true,
+          restTotal: REST_DEFAULT,
+          restRem: REST_DEFAULT,
+          coolIdx: 0,
+          coolRem: COOLDOWN_MOVES[0].seconds,
+          coolRunning: false,
+          setsDone: 0,
+          holdSecEarned: 0,
+          summary: null
+        };
+      }
+      switchTab('workout');
+    }
+
+    function syncExTimer() {
+      const ex = session.exercises[session.exIdx];
+      if (!ex) return;
+      session.holdTotal = ex.holdSec || 20;
+      session.holdRem = ex.holdSec || 20;
+      session.holdRunning = false;
+      session.breatheIn = true;
+    }
+
+    function jumpToStage(targetStage) {
+      pauseWorkoutTimers();
+      if (targetStage === 'warmup') {
+        session.stage = 'warmup';
+        session.warmRem = WARMUP_MOVES[session.warmIdx].seconds;
+      } else if (targetStage === 'core') {
+        session.stage = 'core';
+        syncExTimer();
+      } else if (targetStage === 'cooldown') {
+        session.stage = 'cooldown';
+        session.coolRem = COOLDOWN_MOVES[session.coolIdx].seconds;
+      }
+      renderCurrentTab();
+    }
+
+    function jumpToExercise(idx) {
+      pauseWorkoutTimers();
+      session.stage = 'core';
+      session.exIdx = idx;
+      syncExTimer();
+      renderCurrentTab();
+    }
+
+    function renderStageSwitcher() {
+      const s = session.stage;
+      const pills = [
+        { id: 'warmup',   label: '1. التسخين (4)' },
+        { id: 'core',     label: '2. التمارين (7)' },
+        { id: 'cooldown', label: '3. الإطالة (3)' }
+      ];
+      return `
+        <div class="grid grid-cols-3 gap-1.5 bg-bgCard p-1.5 rounded-2xl border border-emeraldPri/20">
+          ${pills.map(p => {
+            const on = s === p.id || (s === 'rest' && p.id === 'core');
+            return `
+              <button onclick="jumpToStage('${p.id}')" class="py-2 rounded-xl text-[11px] font-black transition ${
+                on ? 'bg-emeraldPri text-bgDeep' : 'text-gray-400 hover:text-textMain'
+              }">${p.label}</button>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function renderWorkout(el) {
+      if (!session.active || session.stage === 'idle') {
+        const pInfo = getPhaseInfo(appState.completedWorkouts);
+        el.innerHTML = `
+          <div class="card-tactical rounded-3xl p-6 text-center space-y-5">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-emeraldPri/20 border border-emeraldPri/40 flex items-center justify-center text-3xl">🔥</div>
+            <div class="space-y-1.5">
+              <span class="text-xs font-black text-limeSpark">${pInfo.shortName}</span>
+              <h2 class="text-xl font-black text-textMain">جاهز نبدأ التمرينة خطوة بخطوة؟</h2>
+              <p class="text-xs text-textSoft/85 leading-relaxed">
+                4 حركات تسخين ← 7 تمارين مقفولين بالرسومات والفيديوهات القصيرة ومؤقت الثبات والراحة ← 3 إطالات تهدئة.
+              </p>
+            </div>
+            <button onclick="startLiveWorkout()" class="w-full py-4 rounded-2xl bg-gradient-to-l from-limeSpark to-emeraldPri text-bgDeep font-black text-base glow-emerald active:scale-95 transition">
+              ابدأ التمرينة من التسخين 🚀
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      if (session.stage === 'warmup') renderWarmupStage(el);
+      else if (session.stage === 'core') renderCoreStage(el);
+      else if (session.stage === 'rest') renderRestStage(el);
+      else if (session.stage === 'cooldown') renderCooldownStage(el);
+      else if (session.stage === 'complete') renderCompleteStage(el);
+    }
+
+    // --- STAGE 1: WARM-UP (4 individual moves with timers & short videos) ---
+    function renderWarmupStage(el) {
+      const m = WARMUP_MOVES[session.warmIdx];
+      el.innerHTML = `
+        <div class="space-y-3.5">
+          ${renderStageSwitcher()}
+
+          <div class="flex items-center justify-between px-1">
+            <span class="text-xs font-black text-limeSpark">حركة تسخين ${session.warmIdx + 1} من ${WARMUP_MOVES.length}</span>
+            <button onclick="askQuitWorkout()" class="text-xs font-bold text-gray-400 hover:text-danger">خروج</button>
+          </div>
+
+          <div class="card-tactical rounded-3xl p-4 space-y-4">
+            <div class="space-y-1">
+              <h2 class="text-lg font-black text-textMain leading-snug">${m.name}</h2>
+              <p class="text-xs text-textSoft/90 leading-relaxed">${m.tip}</p>
+            </div>
+
+            <div class="rounded-2xl overflow-hidden border border-emeraldPri/25">
+              ${getSVG(m.svgKey, true)}
+            </div>
+
+            <a href="${m.yt}" target="_blank" rel="noopener noreferrer"
+              class="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-red-600/20 border border-red-500/45 text-red-200 font-black text-xs active:scale-95 transition">
+              <span>▶</span>
+              <span>شرح مباشر (${m.ytDur})</span>
+            </a>
+
+            <div class="bg-bgDeep/85 rounded-2xl p-4 border border-emeraldPri/30 text-center space-y-3">
+              <div id="warmClock" class="text-5xl font-black text-limeSpark tracking-wider">00:${String(session.warmRem).padStart(2, '0')}</div>
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="toggleWarmTimer()" class="py-3.5 rounded-2xl ${session.warmRunning ? 'bg-warn text-bgDeep' : 'bg-emeraldPri text-bgDeep glow-emerald'} font-black text-sm active:scale-95">
+                  ${session.warmRunning ? 'إيقاف ⏸' : 'ابدأ 45 ثانية ▶'}
+                </button>
+                <button onclick="nextWarmMove()" class="py-3.5 rounded-2xl bg-limeSpark text-bgDeep font-black text-sm active:scale-95">
+                  ${session.warmIdx < WARMUP_MOVES.length - 1 ? 'الحركة التالية ←' : 'ابدأ التمارين 🚀'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleWarmTimer() {
+      if (session.warmRunning) { pauseWorkoutTimers(); renderCurrentTab(); return; }
+      SFX.start();
+      session.warmRunning = true;
+      renderCurrentTab();
+      timerInt = setInterval(() => {
+        session.warmRem--;
+        if (session.warmRem <= 3 && session.warmRem > 0) SFX.tick();
+        if (session.warmRem <= 0) {
+          SFX.done();
+          nextWarmMove();
+        } else {
+          const el = document.getElementById('warmClock');
+          if (el) el.textContent = `00:${String(session.warmRem).padStart(2, '0')}`;
+        }
+      }, 1000);
+    }
+
+    function nextWarmMove() {
+      pauseWorkoutTimers();
+      if (session.warmIdx < WARMUP_MOVES.length - 1) {
+        session.warmIdx++;
+        session.warmRem = WARMUP_MOVES[session.warmIdx].seconds;
+        renderCurrentTab();
+      } else {
+        session.stage = 'core';
+        session.exIdx = 0;
+        syncExTimer();
+        renderCurrentTab();
+      }
+    }
+
+    // --- STAGE 2: CORE 7 EXERCISES ---
+    function renderCoreStage(el) {
+      const ex = session.exercises[session.exIdx];
+      const setsArr = session.setsCompletedMap[session.exIdx] || Array.from({ length: ex.sets }, () => false);
+      const doneSetsCount = setsArr.filter(Boolean).length;
+      const activeSetNum = Math.min(ex.sets, doneSetsCount + 1);
+
+      const radius = 64;
+      const circ = 2 * Math.PI * radius;
+      const offset = circ * (1 - (session.holdTotal > 0 ? session.holdRem / session.holdTotal : 0));
+
+      el.innerHTML = `
+        <div class="space-y-3.5">
+          ${renderStageSwitcher()}
+
+          <!-- Quick Exercise Number Jump Strip (1..7) -->
+          <div class="flex items-center justify-between gap-1.5">
+            <div class="flex items-center gap-1 flex-1 overflow-x-auto py-0.5">
+              ${session.exercises.map((item, i) => {
+                const arr = session.setsCompletedMap[i] || [];
+                const allDone = arr.length > 0 && arr.every(Boolean);
+                const curr = i === session.exIdx;
+                return `
+                  <button onclick="jumpToExercise(${i})" class="w-8 h-8 rounded-xl text-xs font-black shrink-0 border transition ${
+                    curr
+                      ? 'bg-limeSpark text-bgDeep border-limeSpark'
+                      : allDone
+                        ? 'bg-emeraldPri/25 text-limeSpark border-emeraldPri/50'
+                        : 'bg-bgCard text-gray-400 border-white/10'
+                  }">${allDone ? '✓' : (i + 1)}</button>
+                `;
+              }).join('')}
+            </div>
+            <button onclick="askQuitWorkout()" class="text-xs font-bold text-gray-400 hover:text-danger shrink-0 px-1">خروج</button>
+          </div>
+
+          <div class="card-tactical rounded-3xl p-4 space-y-3.5">
+            <!-- Header -->
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-[11px] font-black text-limeSpark">تمرين ${session.exIdx + 1} من ${session.exercises.length}</span>
+                <span class="text-[11px] font-bold text-mintHi">${ex.muscles}</span>
+              </div>
+              <h2 class="text-lg font-black text-textMain leading-snug mt-0.5">${ex.name}</h2>
+            </div>
+
+            <!-- Dedicated Short Video Button -->
+            <a href="${ex.yt}" target="_blank" rel="noopener noreferrer"
+              class="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-red-600/20 border border-red-500/45 text-red-200 font-black text-xs active:scale-95 transition">
+              <span>▶</span>
+              <span>شرح مباشر (${ex.ytDur})</span>
+            </a>
+
+            <!-- SVG Posture Diagram -->
+            <div class="rounded-2xl overflow-hidden border border-emeraldPri/25">
+              ${getSVG(ex.svgKey)}
+            </div>
+
+            <!-- Interactive Set Checkboxes -->
+            <div class="bg-bgDeep/85 rounded-2xl p-3 border border-emeraldPri/20 space-y-2">
+              <div class="flex items-center justify-between text-xs font-black">
+                <span class="text-textMain">المجموعات (${doneSetsCount} / ${ex.sets})</span>
+                <span class="text-limeSpark">المجموعة الحالية: ${activeSetNum}</span>
+              </div>
+              <div class="grid grid-cols-${ex.sets} gap-2">
+                ${setsArr.map((isDone, sIdx) => `
+                  <button onclick="toggleSetBox(${sIdx})" class="py-2.5 rounded-xl border text-xs font-black flex items-center justify-center gap-1 transition active:scale-95 ${
+                    isDone
+                      ? 'bg-emeraldPri text-bgDeep border-emeraldPri'
+                      : (sIdx === doneSetsCount
+                          ? 'bg-limeSpark/15 text-limeSpark border-limeSpark'
+                          : 'bg-bgCard text-gray-400 border-white/10')
+                  }">
+                    <span>${isDone ? '☑' : '☐'}</span>
+                    <span>مجموعة ${sIdx + 1}</span>
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Isometric Hold Timer OR Reps Box -->
+            ${ex.type === 'hold' ? `
+              <div class="bg-bgDeep/85 rounded-3xl p-4 border border-emeraldPri/30 text-center space-y-3">
+                <div class="text-xs font-bold text-textSoft">الهدف: <span class="text-limeSpark font-black">${ex.target}</span></div>
+
+                <div class="relative w-40 h-40 mx-auto flex items-center justify-center">
+                  <svg class="w-40 h-40" viewBox="0 0 150 150">
+                    <circle cx="75" cy="75" r="${radius}" stroke="#132a1c" stroke-width="10" fill="none"/>
+                    <circle id="holdRing" class="ring-prog" cx="75" cy="75" r="${radius}"
+                      stroke="#a3e635" stroke-width="10" stroke-linecap="round" fill="none"
+                      stroke-dasharray="${circ}" stroke-dashoffset="${offset}"/>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span class="text-[11px] font-bold text-textSoft">${session.holdRunning ? 'اثبت يا صقر!' : 'مؤقت الثبات'}</span>
+                    <span id="holdNum" class="text-4xl font-black text-textMain leading-tight">${session.holdRem}</span>
+                    <span class="text-[11px] font-bold text-gray-400">ثانية</span>
+                  </div>
+                </div>
+
+                <!-- Animated Live Breathing Pacer -->
+                <div class="py-2.5 px-3 rounded-2xl border border-emeraldPri/40 bg-emeraldPri/15 text-xs font-black text-textMain ${session.holdRunning ? 'breathe-active' : ''}">
+                  <span id="breatheLbl">${
+                    session.holdRunning
+                      ? (session.breatheIn ? 'شهيق بهدوء... 🫁' : 'زفير منتظم... متحبسش نفسك! 🌬️')
+                      : '🫁 شهيق بهدوء... زفير منتظم... متحبسش نفسك!'
+                  }</span>
+                </div>
+
+                <div class="flex gap-2">
+                  <button onclick="toggleHoldTimer()" class="flex-1 py-4 rounded-2xl ${session.holdRunning ? 'bg-warn text-bgDeep' : 'bg-gradient-to-l from-limeSpark to-emeraldPri text-bgDeep glow-emerald'} font-black text-base active:scale-95 transition">
+                    ${session.holdRunning ? 'إيقاف مؤقت ⏸' : 'ابدأ الثبات ⏱️'}
+                  </button>
+                  <button onclick="completeNextSet(true)" class="px-4 py-4 rounded-2xl bg-bgSurface border border-emeraldPri/35 text-limeSpark font-black text-xs active:scale-95">
+                    تمت ✓
+                  </button>
+                </div>
+              </div>
+            ` : `
+              <div class="bg-bgDeep/85 rounded-3xl p-5 border border-emeraldPri/30 text-center space-y-3.5">
+                <div>
+                  <span class="text-xs font-bold text-textSoft/80">المطلوب في المجموعة دي</span>
+                  <div class="text-2xl font-black text-limeSpark mt-1">${ex.target}</div>
+                </div>
+                <button onclick="completeNextSet(false)" class="w-full py-4 rounded-2xl bg-gradient-to-l from-limeSpark to-emeraldPri text-bgDeep font-black text-base glow-emerald active:scale-95 transition">
+                  خلصت المجموعة ✓ (ابدأ الراحة)
+                </button>
+              </div>
+            `}
+
+            <!-- Concise Form Bullets -->
+            <div class="bg-bgSurface/80 rounded-2xl p-3.5 border border-emeraldPri/20 space-y-1.5">
+              <div class="text-xs font-black text-limeSpark">🎯 الأداء الصح:</div>
+              <ul class="text-xs text-textMain space-y-1 list-disc list-inside leading-relaxed">
+                ${ex.cues.map(c => `<li>${c}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleHoldTimer() {
+      if (session.holdRunning) { pauseWorkoutTimers(); renderCurrentTab(); return; }
+      session.holdRunning = true;
+      session.breatheIn = true;
+      SFX.start();
+      renderCurrentTab();
+
+      breatheInt = setInterval(() => {
+        session.breatheIn = !session.breatheIn;
+        const lbl = document.getElementById('breatheLbl');
+        if (lbl) lbl.textContent = session.breatheIn ? 'شهيق بهدوء... 🫁' : 'زفير منتظم... متحبسش نفسك! 🌬️';
+      }, 3000);
+
+      timerInt = setInterval(() => {
+        session.holdRem--;
+        session.holdSecEarned++;
+        if (session.holdRem <= 3 && session.holdRem > 0) SFX.tick();
+        if (session.holdRem <= 0) {
+          pauseWorkoutTimers();
+          SFX.done();
+          completeNextSet(false);
+        } else {
+          const num = document.getElementById('holdNum');
+          const ring = document.getElementById('holdRing');
+          if (num) num.textContent = session.holdRem;
+          if (ring) {
+            const c = 2 * Math.PI * 64;
+            ring.style.strokeDashoffset = c * (1 - (session.holdRem / session.holdTotal));
+          }
+        }
+      }, 1000);
+    }
+
+    function toggleSetBox(sIdx) {
+      const arr = session.setsCompletedMap[session.exIdx];
+      if (!arr) return;
+      if (arr[sIdx]) {
+        arr[sIdx] = false;
+        session.setsDone = Math.max(0, session.setsDone - 1);
+        SFX.tick();
+        renderCurrentTab();
+      } else {
+        completeNextSet(true, sIdx);
+      }
+    }
+
+    function completeNextSet(manualTap, specificIdx = null) {
+      pauseWorkoutTimers();
+      const ex = session.exercises[session.exIdx];
+      const arr = session.setsCompletedMap[session.exIdx];
+      const idx = specificIdx !== null ? specificIdx : arr.findIndex(v => !v);
+
+      if (idx !== -1) {
+        arr[idx] = true;
+        session.setsDone++;
+        if (manualTap && ex.type === 'hold' && session.holdRem === session.holdTotal) {
+          session.holdSecEarned += session.holdTotal;
+        }
+      }
+      SFX.done();
+
+      const allSetsDoneForEx = arr.every(Boolean);
+      const isLastEx = session.exIdx >= session.exercises.length - 1;
+
+      if (allSetsDoneForEx && isLastEx) {
+        startCooldownStage();
+        return;
+      }
+
+      if (allSetsDoneForEx) {
+        session.exIdx++;
+        syncExTimer();
+      } else {
+        session.holdRem = session.holdTotal;
+      }
+
+      startRestStage();
+    }
+
+    // --- AUTO 75s REST OVERLAY ---
+    function startRestStage() {
+      pauseWorkoutTimers();
+      session.stage = 'rest';
+      session.restTotal = REST_DEFAULT;
+      session.restRem = REST_DEFAULT;
+      renderCurrentTab();
+
+      timerInt = setInterval(() => {
+        session.restRem--;
+        if (session.restRem <= 3 && session.restRem > 0) SFX.tick();
+        if (session.restRem <= 0) {
+          SFX.restOver();
+          skipRest();
+        } else {
+          const clk = document.getElementById('restClock');
+          const bar = document.getElementById('restBar');
+          if (clk) clk.textContent = `${String(Math.floor(session.restRem / 60)).padStart(2, '0')}:${String(session.restRem % 60).padStart(2, '0')}`;
+          if (bar) bar.style.width = `${Math.max(0, Math.round((session.restRem / session.restTotal) * 100))}%`;
+        }
+      }, 1000);
+    }
+
+    function add15sRest() {
+      session.restRem += 15;
+      session.restTotal = Math.max(session.restTotal, session.restRem);
+      SFX.tick();
+      renderCurrentTab();
+    }
+
+    function skipRest() {
+      pauseWorkoutTimers();
+      session.stage = 'core';
+      renderCurrentTab();
+    }
+
+    function renderRestStage(el) {
+      const nextEx = session.exercises[session.exIdx];
+      const arr = session.setsCompletedMap[session.exIdx] || [];
+      const nextSetNum = Math.min(nextEx.sets, arr.filter(Boolean).length + 1);
+      const mm = String(Math.floor(session.restRem / 60)).padStart(2, '0');
+      const ss = String(session.restRem % 60).padStart(2, '0');
+      const pct = Math.round((session.restRem / session.restTotal) * 100);
+
+      el.innerHTML = `
+        <div class="space-y-3.5">
+          ${renderStageSwitcher()}
+          <div class="card-tactical rounded-3xl p-6 text-center space-y-5 border-limeSpark/50">
+            <span class="inline-block px-4 py-1 rounded-full bg-emeraldPri/20 border border-emeraldPri/40 text-limeSpark text-xs font-black">
+              ✅ عاش يا صقر! خد نفسك وارتاح
+            </span>
+
+            <div>
+              <p class="text-xs font-bold text-textSoft/80">راحة أوتوماتيك (75 ثانية)</p>
+              <div id="restClock" class="text-6xl font-black text-limeSpark tracking-wider mt-1">${mm}:${ss}</div>
+              <div class="w-full h-2.5 bg-bgDeep rounded-full overflow-hidden mt-3 border border-emeraldPri/25">
+                <div id="restBar" class="h-full bg-gradient-to-l from-limeSpark to-emeraldPri transition-all duration-300" style="width:${pct}%"></div>
+              </div>
+            </div>
+
+            <div class="bg-bgDeep/85 rounded-2xl p-3.5 border border-emeraldPri/20 text-right space-y-1">
+              <div class="text-[11px] font-black text-limeSpark">اللي جاي بعد الراحة:</div>
+              <div class="text-sm font-black text-textMain">${nextEx.name}</div>
+              <div class="text-xs text-mintHi font-bold">المجموعة ${nextSetNum} من ${nextEx.sets} • ${nextEx.target}</div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2.5">
+              <button onclick="add15sRest()" class="col-span-1 py-4 rounded-2xl bg-bgSurface border border-emeraldPri/35 text-limeSpark font-black text-xs active:scale-95">
+                +15 ثانية
+              </button>
+              <button onclick="skipRest()" class="col-span-2 py-4 rounded-2xl bg-gradient-to-l from-limeSpark to-emeraldPri text-bgDeep font-black text-sm glow-emerald active:scale-95 transition">
+                تخطي الراحة 🚀
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- STAGE 3: COOLDOWN (3 individual stretches, 30s each, 3 short videos) ---
+    function startCooldownStage() {
+      pauseWorkoutTimers();
+      session.stage = 'cooldown';
+      session.coolIdx = 0;
+      session.coolRem = COOLDOWN_MOVES[0].seconds;
+      renderCurrentTab();
+    }
+
+    function renderCooldownStage(el) {
+      const st = COOLDOWN_MOVES[session.coolIdx];
+      el.innerHTML = `
+        <div class="space-y-3.5">
+          ${renderStageSwitcher()}
+
+          <div class="flex items-center justify-between px-1">
+            <span class="text-xs font-black text-limeSpark">🧘 إطالة وتهدئة (${session.coolIdx + 1} من ${COOLDOWN_MOVES.length})</span>
+            <button onclick="finishWorkout()" class="text-xs font-bold text-gray-400 hover:text-limeSpark">إنهاء فوراً ←</button>
+          </div>
+
+          <div class="card-tactical rounded-3xl p-4 space-y-4">
+            <div>
+              <h2 class="text-lg font-black text-textMain leading-snug">${st.name}</h2>
+              <p class="text-xs text-textSoft/90 mt-1 leading-relaxed">${st.tip}</p>
+            </div>
+
+            <div class="rounded-2xl overflow-hidden border border-emeraldPri/25">
+              ${getSVG(st.svgKey, true)}
+            </div>
+
+            <a href="${st.yt}" target="_blank" rel="noopener noreferrer"
+              class="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-red-600/20 border border-red-500/45 text-red-200 font-black text-xs active:scale-95 transition">
+              <span>▶</span>
+              <span>شرح مباشر (${st.ytDur})</span>
+            </a>
+
+            <div class="bg-bgDeep/85 rounded-2xl p-4 border border-emeraldPri/30 text-center space-y-3">
+              <div id="coolClock" class="text-5xl font-black text-limeSpark">00:${String(session.coolRem).padStart(2, '0')}</div>
+              <div class="grid grid-cols-2 gap-2">
+                <button onclick="toggleCoolTimer()" class="py-3.5 rounded-2xl ${session.coolRunning ? 'bg-warn text-bgDeep' : 'bg-emeraldPri text-bgDeep glow-emerald'} font-black text-sm active:scale-95">
+                  ${session.coolRunning ? 'إيقاف ⏸' : 'ابدأ 30 ثانية ▶'}
+                </button>
+                <button onclick="nextCoolMove()" class="py-3.5 rounded-2xl bg-limeSpark text-bgDeep font-black text-sm active:scale-95">
+                  ${session.coolIdx < COOLDOWN_MOVES.length - 1 ? 'الإطالة التالية ←' : 'إنهاء التمرينة 🏆'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleCoolTimer() {
+      if (session.coolRunning) { pauseWorkoutTimers(); renderCurrentTab(); return; }
+      SFX.start();
+      session.coolRunning = true;
+      renderCurrentTab();
+      timerInt = setInterval(() => {
+        session.coolRem--;
+        if (session.coolRem <= 3 && session.coolRem > 0) SFX.tick();
+        if (session.coolRem <= 0) {
+          SFX.done();
+          nextCoolMove();
+        } else {
+          const el = document.getElementById('coolClock');
+          if (el) el.textContent = `00:${String(session.coolRem).padStart(2, '0')}`;
+        }
+      }, 1000);
+    }
+
+    function nextCoolMove() {
+      pauseWorkoutTimers();
+      if (session.coolIdx < COOLDOWN_MOVES.length - 1) {
+        session.coolIdx++;
+        session.coolRem = COOLDOWN_MOVES[session.coolIdx].seconds;
+        renderCurrentTab();
+      } else {
+        finishWorkout();
+      }
+    }
+
+    // --- CELEBRATION ---
+    function finishWorkout() {
+      pauseWorkoutTimers();
+      const prevPhase = getPhaseInfo(appState.completedWorkouts).num;
+      const durMin = Math.max(1, Math.round((Date.now() - (session.startedAt || Date.now())) / 60000));
+      const todayKey = getDateKey();
+
+      if (appState.lastWorkoutDate !== todayKey) appState.streak += 1;
+      appState.lastWorkoutDate = todayKey;
+      if (!appState.completedDates.includes(todayKey)) appState.completedDates.push(todayKey);
+
+      appState.completedWorkouts += 1;
+      appState.totalHoldSec += session.holdSecEarned;
+      appState.xp += 100;
+
+      const newPhase = getPhaseInfo(appState.completedWorkouts).num;
+      const upgraded = newPhase > prevPhase;
+
+      appState.history.unshift({
+        dateStr: new Date().toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric', month: 'short' }),
+        iso: new Date().toISOString(),
+        phase: session.phaseNum,
+        durMin,
+        setsDone: session.setsDone,
+        holdSec: session.holdSecEarned,
+        xpEarned: 100
+      });
+
+      const unlocked = [];
+      if (appState.completedWorkouts >= 1 && unlockBadge('first_step')) unlocked.push('🥇 أول خطوة');
+      if (getWorkoutsLast7Days() >= 3 && unlockBadge('week_streak')) unlocked.push('🔥 التزام أسبوع');
+      if (appState.totalHoldSec >= 300 && unlockBadge('iron_nerves')) unlocked.push('⚡ أعصاب حديد');
+      if (appState.completedWorkouts >= 12 && unlockBadge('phase1_beast')) unlocked.push('🛡️ وحش المرحلة الأولى');
+      if (appState.completedWorkouts >= 24 && unlockBadge('true_steel')) unlocked.push('👑 فولاذ حقيقي');
+
+      saveState();
+      session.stage = 'complete';
+      session.summary = { durMin, unlocked, upgraded, newPhase };
+      SFX.victory();
+      fireConfetti();
+      renderCurrentTab();
+    }
+
+    function renderCompleteStage(el) {
+      const s = session.summary || { durMin: 25, unlocked: [], upgraded: false, newPhase: 1 };
+      el.innerHTML = `
+        <div class="card-tactical rounded-3xl p-6 text-center space-y-5 border-limeSpark/60">
+          <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-limeSpark to-emeraldPri flex items-center justify-center text-4xl text-bgDeep glow-lime">🏆</div>
+          <div>
+            <h2 class="text-2xl font-black text-textMain">وحش يا صقر!! 🦅</h2>
+            <p class="text-xs font-bold text-textSoft mt-1">خلصت تمرينتك كاملة.. جسمك وأعصابك أقوى النهارده!</p>
+          </div>
+
+          ${s.upgraded ? `
+            <div class="bg-limeSpark/20 border border-limeSpark rounded-2xl p-3.5 text-sm font-black text-limeSpark">
+              🎉 مبروك! اتفتحتلك المرحلة ${s.newPhase} أوتوماتيك!
+            </div>
+          ` : ''}
+
+          <div class="grid grid-cols-2 gap-2.5">
+            <div class="bg-bgDeep/85 rounded-2xl p-3 border border-emeraldPri/25">
+              <div class="text-2xl font-black text-limeSpark">+100 XP</div>
+              <div class="text-[11px] text-gray-400 font-bold">نقاط القوة</div>
+            </div>
+            <div class="bg-bgDeep/85 rounded-2xl p-3 border border-emeraldPri/25">
+              <div class="text-2xl font-black text-mintHi">${appState.streak} 🔥</div>
+              <div class="text-[11px] text-gray-400 font-bold">سلسلة الالتزام</div>
+            </div>
+            <div class="bg-bgDeep/85 rounded-2xl p-3 border border-emeraldPri/25">
+              <div class="text-2xl font-black text-textMain">${session.setsDone}</div>
+              <div class="text-[11px] text-gray-400 font-bold">مجموعات مكتملة</div>
+            </div>
+            <div class="bg-bgDeep/85 rounded-2xl p-3 border border-emeraldPri/25">
+              <div class="text-2xl font-black text-textSoft">${s.durMin} دقيقة</div>
+              <div class="text-[11px] text-gray-400 font-bold">مدة الجلسة</div>
+            </div>
+          </div>
+
+          ${s.unlocked.length > 0 ? `
+            <div class="bg-emeraldPri/20 border border-emeraldPri/50 rounded-2xl p-3 text-xs font-black text-limeSpark">
+              🏅 أوسمة جديدة: ${s.unlocked.join(' • ')}
+            </div>
+          ` : ''}
+
+          <button onclick="finishAndGoHome()" class="w-full py-4 rounded-2xl bg-gradient-to-l from-limeSpark to-emeraldPri text-bgDeep font-black text-base glow-emerald active:scale-95">
+            رجوع للرئيسية 🏠
+          </button>
+        </div>
+      `;
+    }
+
+    function finishAndGoHome() {
+      session.active = false;
+      session.stage = 'idle';
+      switchTab('home');
+    }
+
+    function askQuitWorkout() {
+      openConfirmModal(
+        'تخرج من التمرينة؟',
+        'لسه مخلصتش التمرينة يا صقر.. متأكد إنك عايز توقف دلوقتي؟',
+        `
+          <button onclick="confirmQuitWorkout()" class="flex-1 py-3 rounded-xl bg-danger text-white font-black text-sm">أيوة، خروج</button>
+          <button onclick="closeConfirmModal()" class="flex-1 py-3 rounded-xl bg-emeraldPri text-bgDeep font-black text-sm">لأ، هكمّل 💪</button>
+        `
+      );
+    }
+    function confirmQuitWorkout() {
+      closeConfirmModal();
+      pauseWorkoutTimers();
+      session.active = false;
+      session.stage = 'idle';
+      renderCurrentTab();
+    }
+
+    /* =========================================================================
+       TAB 3: PLAN (الجدول الكامل والفيديوهات القصيرة المباشرة)
+       ========================================================================= */
+    function renderPlan(el) {
+      const pInfo = getPhaseInfo(appState.completedWorkouts);
+      const coreList = getCoreExercises(pInfo.num);
+
+      el.innerHTML = `
+        <div class="space-y-5">
+          <div>
+            <h2 class="text-xl font-black text-textMain">جدولك الكامل والفيديوهات المباشرة 📋</h2>
+            <p class="text-xs font-bold text-textSoft/85 mt-0.5">${pInfo.title}</p>
+            <div class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emeraldPri/15 border border-emeraldPri/35 text-[11px] font-black text-limeSpark">
+              📅 أيامك الثابتة: الأحد • الأربعاء • الجمعة (وباقي الأيام راحة)
+            </div>
+          </div>
+
+          <!-- SECTION A: 4 WARM-UP MOVES -->
+          <div class="space-y-3">
+            <h3 class="text-sm font-black text-limeSpark px-1">🔥 أولاً: التسخين (4 حركات × 45 ثانية — فيديو لكل حركة)</h3>
+            ${WARMUP_MOVES.map((m, i) => `
+              <div class="card-tactical rounded-3xl p-4 space-y-3">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-xl bg-emeraldPri/25 border border-emeraldPri/50 text-limeSpark font-black text-xs flex items-center justify-center shrink-0">${i + 1}</span>
+                    <h4 class="text-sm font-black text-textMain leading-snug">${m.name}</h4>
+                  </div>
+                  <span class="shrink-0 px-2.5 py-1 rounded-xl bg-bgDeep border border-emeraldPri/30 text-mintHi text-[11px] font-black">45 ثانية</span>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-emeraldPri/20">${getSVG(m.svgKey, true)}</div>
+                <p class="text-xs text-textMain/95 bg-bgDeep/80 rounded-2xl p-3 border border-emeraldPri/15 leading-relaxed">${m.tip}</p>
+                <a href="${m.yt}" target="_blank" rel="noopener noreferrer"
+                  class="flex items-center justify-center gap-2 w-full py-2.5 rounded-2xl bg-red-600/20 border border-red-500/45 text-red-200 font-black text-xs active:scale-95 transition">
+                  <span>▶</span><span>شرح مباشر (${m.ytDur})</span>
+                </a>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- SECTION B: 7 CORE EXERCISES -->
+          <div class="space-y-3">
+            <h3 class="text-sm font-black text-limeSpark px-1">💪 ثانياً: الـ 7 تمارين الأساسية (الراحة 75 ثانية بين المجموعات)</h3>
+            ${coreList.map((ex, i) => `
+              <div class="card-tactical rounded-3xl p-4 space-y-3">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-emeraldPri text-bgDeep font-black text-sm flex items-center justify-center shrink-0">${i + 1}</span>
+                    <div>
+                      <h4 class="text-sm font-black text-textMain leading-snug">${ex.name}</h4>
+                      <p class="text-[11px] font-bold text-mintHi">${ex.muscles}</p>
+                    </div>
+                  </div>
+                  <span class="shrink-0 px-2.5 py-1 rounded-xl bg-bgDeep border border-emeraldPri/35 text-limeSpark text-[11px] font-black">
+                    ${ex.sets} × ${ex.target}
+                  </span>
+                </div>
+
+                <div class="rounded-2xl overflow-hidden border border-emeraldPri/25">${getSVG(ex.svgKey)}</div>
+
+                <p class="text-xs text-textMain/95 bg-bgDeep/80 rounded-2xl p-3 border border-emeraldPri/15 leading-relaxed">
+                  <strong class="text-limeSpark">الطريقة الصح:</strong> ${ex.shortTip}
+                </p>
+
+                <div class="text-[11px] font-bold text-textSoft/80 bg-bgSurface/70 rounded-xl px-3 py-2 border border-emeraldPri/15">
+                  ⬆️ التطور التلقائي: ${ex.upgradeNote}
+                </div>
+
+                <a href="${ex.yt}" target="_blank" rel="noopener noreferrer"
+                  class="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-red-600/20 border border-red-500/45 text-red-200 font-black text-xs active:scale-95 transition">
+                  <span>▶</span><span>شرح مباشر (${ex.ytDur})</span>
+                </a>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- SECTION C: 3 COOLDOWN STRETCHES -->
+          <div class="space-y-3">
+            <h3 class="text-sm font-black text-limeSpark px-1">🧘 ثالثاً: التهدئة والإطالة (3 إطالات × 30 ثانية — فيديو لكل إطالة)</h3>
+            ${COOLDOWN_MOVES.map((m, i) => `
+              <div class="card-tactical rounded-3xl p-4 space-y-3">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-7 h-7 rounded-xl bg-emeraldPri/25 border border-emeraldPri/50 text-limeSpark font-black text-xs flex items-center justify-center shrink-0">${i + 1}</span>
+                    <h4 class="text-sm font-black text-textMain leading-snug">${m.name}</h4>
+                  </div>
+                  <span class="shrink-0 px-2.5 py-1 rounded-xl bg-bgDeep border border-emeraldPri/30 text-mintHi text-[11px] font-black">30 ثانية</span>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-emeraldPri/20">${getSVG(m.svgKey, true)}</div>
+                <p class="text-xs text-textMain/95 bg-bgDeep/80 rounded-2xl p-3 border border-emeraldPri/15 leading-relaxed">${m.tip}</p>
+                <a href="${m.yt}" target="_blank" rel="noopener noreferrer"
+                  class="flex items-center justify-center gap-2 w-full py-2.5 rounded-2xl bg-red-600/20 border border-red-500/45 text-red-200 font-black text-xs active:scale-95 transition">
+                  <span>▶</span><span>شرح مباشر (${m.ytDur})</span>
+                </a>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- FORBIDDEN 4 EXERCISES WARNING BOX -->
+          <div class="card-tactical rounded-3xl p-4 space-y-2.5 border-danger/60 bg-danger/10">
+            <h3 class="text-sm font-black text-red-200">🚫 4 تمارين ممنوع تعملهم دلوقتي (لحماية مفاصلك)</h3>
+            <div class="space-y-2 text-xs text-red-100 leading-relaxed">
+              <div class="bg-bgDeep/85 rounded-xl p-2.5 border border-danger/30"><strong class="text-warn">1. المتوازي (Dips):</strong> تقيل جداً على الكتف قبل التأسيس.</div>
+              <div class="bg-bgDeep/85 rounded-xl p-2.5 border border-danger/30"><strong class="text-warn">2. الوقوف على اليدين (Handstand):</strong> خطر على الرسغ والكتف والرقبة دلوقتي.</div>
+              <div class="bg-bgDeep/85 rounded-xl p-2.5 border border-danger/30"><strong class="text-warn">3. الـ L-Sit بين كرسيين:</strong> صعب جداً وكراسي البيت ممكن تتزحلق بيك.</div>
+              <div class="bg-bgDeep/85 rounded-xl p-2.5 border border-danger/30"><strong class="text-warn">4. القفز من على سلمة (Drop Jumps):</strong> صدمة عالية على الركبة قبل ما رجلك تنشف.</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* =========================================================================
+       TAB 4: PROGRESS & RECORDS (تقدمي)
+       ========================================================================= */
+    function renderProgress(el) {
+      const pInfo = getPhaseInfo(appState.completedWorkouts);
+      const { curr, next } = getRank();
+      const xpPct = next ? Math.min(100, Math.round(((appState.xp - curr.minXP) / (next.minXP - curr.minXP)) * 100)) : 100;
+      const toP2Pct = Math.min(100, Math.round((appState.completedWorkouts / 12) * 100));
+      const toP3Pct = Math.min(100, Math.round((appState.completedWorkouts / 24) * 100));
+
+      const prMeta = [
+        { key: 'pushups', icon: '💪', label: 'أقصى عدد ضغط',       unit: 'عدة',   ph: 'مثلاً 10' },
+        { key: 'wallsit', icon: '🧱', label: 'أقصى ثبات على الحيط', unit: 'ثانية', ph: 'مثلاً 40' },
+        { key: 'plank',   icon: '⚡', label: 'أقصى ثبات بلانك',     unit: 'ثانية', ph: 'مثلاً 35' },
+        { key: 'squats',  icon: '🦵', label: 'أقصى سكوات متواصل',   unit: 'عدة',   ph: 'مثلاً 20' }
+      ];
+
+      el.innerHTML = `
+        <div class="space-y-4">
+          <div>
+            <h2 class="text-xl font-black text-textMain">تقدمك وأرقامك القياسية يا صقر 🏆</h2>
+            <p class="text-xs font-bold text-textSoft/80">كل تمرينة متسجلة تلقائياً على جهازك</p>
+          </div>
+
+          <!-- Top Stats -->
+          <div class="grid grid-cols-2 gap-2.5">
+            <div class="card-tactical rounded-2xl p-3.5 text-center">
+              <div class="text-2xl font-black text-limeSpark">${appState.completedWorkouts}</div>
+              <div class="text-[11px] font-bold text-textSoft/80 mt-0.5">تمارين مكتملة</div>
+            </div>
+            <div class="card-tactical rounded-2xl p-3.5 text-center">
+              <div class="text-2xl font-black text-mintHi">${appState.streak} 🔥</div>
+              <div class="text-[11px] font-bold text-textSoft/80 mt-0.5">سلسلة الالتزام</div>
+            </div>
+            <div class="card-tactical rounded-2xl p-3.5 text-center">
+              <div class="text-2xl font-black text-textMain">${appState.totalHoldSec}ث</div>
+              <div class="text-[11px] font-bold text-textSoft/80 mt-0.5">إجمالي وقت الثبات</div>
+            </div>
+            <div class="card-tactical rounded-2xl p-3.5 text-center">
+              <div class="text-2xl font-black text-limeSpark">${appState.xp} XP</div>
+              <div class="text-[11px] font-bold text-textSoft/80 mt-0.5">${curr.icon} ${curr.title}</div>
+            </div>
+          </div>
+
+          <!-- Automatic Phase Unlock Bars -->
+          <div class="card-tactical rounded-3xl p-4 space-y-3.5">
+            <h3 class="text-sm font-black text-textMain">🗺️ الترقية الأوتوماتيك للمراحل</h3>
+
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs font-black">
+                <span class="${appState.completedWorkouts >= 12 ? 'text-limeSpark' : 'text-textMain'}">
+                  ${appState.completedWorkouts >= 12 ? '✅' : '🔒'} فتح المرحلة 2 — التصعيب التدريجي
+                </span>
+                <span class="text-limeSpark">${Math.min(12, appState.completedWorkouts)} / 12</span>
+              </div>
+              <div class="w-full h-2.5 bg-bgDeep rounded-full overflow-hidden border border-emeraldPri/25">
+                <div class="h-full bg-gradient-to-l from-limeSpark to-emeraldPri rounded-full" style="width:${toP2Pct}%"></div>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs font-black">
+                <span class="${appState.completedWorkouts >= 24 ? 'text-limeSpark' : 'text-textMain'}">
+                  ${appState.completedWorkouts >= 24 ? '✅' : '🔒'} فتح المرحلة 3 — المستوى الفولاذي
+                </span>
+                <span class="text-limeSpark">${Math.min(24, appState.completedWorkouts)} / 24</span>
+              </div>
+              <div class="w-full h-2.5 bg-bgDeep rounded-full overflow-hidden border border-emeraldPri/25">
+                <div class="h-full bg-gradient-to-l from-limeSpark to-emeraldPri rounded-full" style="width:${toP3Pct}%"></div>
+              </div>
+            </div>
+
+            <div class="pt-1 border-t border-emeraldPri/15 flex items-center justify-between text-xs font-black">
+              <span class="text-textSoft">رتبتك الحالية: ${curr.title} ${curr.icon}</span>
+              <span class="text-mintHi">${next ? `الرتبة الجاية عند ${next.minXP} XP` : 'أعلى رتبة 🦅'}</span>
+            </div>
+            <div class="w-full h-2 bg-bgDeep rounded-full overflow-hidden">
+              <div class="h-full bg-mintHi rounded-full" style="width:${xpPct}%"></div>
+            </div>
+          </div>
+
+          <!-- Personal Records (PRs) Tracker -->
+          <div class="card-tactical rounded-3xl p-4 space-y-3">
+            <div>
+              <h3 class="text-sm font-black text-limeSpark">أرقامك القياسية (اختبر نفسك كل أسبوعين) 💪</h3>
+              <p class="text-[11px] text-textSoft/75">سجّل أعلى رقم توصله وشوف قوتك بتزيد بالأرقام</p>
+            </div>
+            <div class="space-y-2.5">
+              ${prMeta.map(item => {
+                const rec = appState.prs[item.key] || { best: 0, prev: 0 };
+                const diff = rec.best > 0 && rec.prev > 0 ? rec.best - rec.prev : 0;
+                return `
+                  <div class="bg-bgDeep/85 rounded-2xl p-3 border border-emeraldPri/20 space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                      <span class="font-black text-textMain">${item.icon} ${item.label}</span>
+                      <span class="font-black text-limeSpark">
+                        ${rec.best > 0 ? `${rec.best} ${item.unit}` : 'لسه متسجلش'}
+                        ${diff > 0 ? `<span class="text-mintHi text-[10px] mr-1">(+${diff} ↑)</span>` : ''}
+                      </span>
+                    </div>
+                    <div class="flex gap-2">
+                      <input id="pr_${item.key}" type="number" min="1" placeholder="${item.ph}"
+                        class="flex-1 px-3 py-2 rounded-xl bg-bgCard border border-emeraldPri/30 text-xs font-bold text-textMain outline-none focus:border-limeSpark"/>
+                      <button onclick="savePR('${item.key}', '${item.unit}')" class="px-4 py-2 rounded-xl bg-emeraldPri text-bgDeep font-black text-xs active:scale-95">
+                        سجّل ✓
+                      </button>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Achievement Badges -->
+          <div class="card-tactical rounded-3xl p-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-black text-textMain">الأوسمة والإنجازات 🏅</h3>
+              <span class="text-xs font-black text-limeSpark">${appState.badges.length} / ${BADGES.length}</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2.5">
+              ${BADGES.map(b => {
+                const on = appState.badges.includes(b.id);
+                return `
+                  <div class="rounded-2xl p-3 border text-center space-y-1 ${
+                    on ? 'bg-emeraldPri/20 border-limeSpark/50 glow-emerald' : 'bg-bgDeep/75 border-white/5 opacity-55'
+                  }">
+                    <div class="text-2xl ${on ? '' : 'grayscale'}">${b.icon}</div>
+                    <div class="text-xs font-black ${on ? 'text-limeSpark' : 'text-gray-300'}">${b.title}</div>
+                    <div class="text-[10px] text-gray-400 leading-snug">${b.desc}</div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Recent Completed Workouts Log -->
+          <div class="card-tactical rounded-3xl p-4 space-y-2.5">
+            <h3 class="text-sm font-black text-textMain">سجل التمارين السابقة 📆</h3>
+            ${appState.history.length === 0 ? `
+              <p class="text-xs text-gray-400 text-center py-4">لسه مفيش تمارين متسجلة.. ابدأ أول تمرينة النهارده يا صقر! 🦅</p>
+            ` : `
+              <div class="space-y-2">
+                ${appState.history.slice(0, 15).map(h => `
+                  <div class="bg-bgDeep/85 rounded-2xl p-3 border border-emeraldPri/15 flex items-center justify-between text-xs">
+                    <div>
+                      <div class="font-black text-textMain">${h.dateStr} • المرحلة ${h.phase}</div>
+                      <div class="text-[11px] text-gray-400">${h.durMin} دقيقة • ${h.setsDone} مجموعة • ${h.holdSec}ث ثبات</div>
+                    </div>
+                    <span class="px-2.5 py-1 rounded-xl bg-emeraldPri/20 text-limeSpark font-black">+${h.xpEarned} XP</span>
+                  </div>
+                `).join('')}
+              </div>
+            `}
+          </div>
+
+          <!-- Safe Reset Button -->
+          <div class="pt-1">
+            <button onclick="askResetAll()" class="w-full py-3 rounded-2xl bg-danger/15 border border-danger/35 text-red-300 text-xs font-black active:scale-95 transition">
+              مسح التقدم والبدء من الصفر 🗑️
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function savePR(key, unit) {
+      const inp = document.getElementById(`pr_${key}`);
+      const val = parseInt(inp.value, 10);
+      if (isNaN(val) || val <= 0) {
+        showToast('اكتب رقم صحيح الأول');
+        return;
+      }
+      const rec = appState.prs[key] || { best: 0, prev: 0 };
+      if (val > rec.best) {
+        rec.prev = rec.best;
+        rec.best = val;
+        appState.prs[key] = rec;
+        appState.xp += 20;
+        SFX.done();
+        showToast(`رقم قياسي جديد: ${val} ${unit}! (+20 XP) 🔥`);
+      } else {
+        showToast(`أفضل رقمك الحالي هو ${rec.best} ${unit}.. المرة الجاية تكسره! 💪`);
+      }
+      saveState();
+      renderCurrentTab();
+    }
+
+    function askResetAll() {
+      openConfirmModal(
+        'تأكيد مسح كل التقدم ⚠️',
+        'هتتمسح كل التمارين والأرقام القياسية والـ XP وتبدأ المرحلة 1 من الصفر. متأكد؟',
+        `
+          <button onclick="confirmResetAll()" class="flex-1 py-3 rounded-xl bg-danger text-white font-black text-sm">أيوة، امسح</button>
+          <button onclick="closeConfirmModal()" class="flex-1 py-3 rounded-xl bg-bgSurface text-textMain font-bold text-sm">إلغاء</button>
+        `
+      );
+    }
+    function confirmResetAll() {
+      appState = defaultState();
+      saveState();
+      closeConfirmModal();
+      switchTab('home');
+      showToast('تم تصفير التقدم.. بداية قوية يا صقر! 🦅');
+    }
+
+    // --- CONFETTI ---
+    function fireConfetti() {
+      const c = document.getElementById('confettiCanvas');
+      c.classList.remove('hidden');
+      const ctx = c.getContext('2d');
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+      const colors = ['#10b981', '#34d399', '#a3e635', '#ecfdf5', '#a7f3d0'];
+      const pts = Array.from({ length: 85 }, () => ({
+        x: Math.random() * c.width,
+        y: -20 - Math.random() * 140,
+        w: 6 + Math.random() * 6,
+        h: 4 + Math.random() * 5,
+        vy: 3 + Math.random() * 4.5,
+        vx: (Math.random() - 0.5) * 4,
+        r: Math.random() * Math.PI * 2,
+        vr: (Math.random() - 0.5) * 0.2,
+        col: colors[Math.floor(Math.random() * colors.length)]
+      }));
+
+      let f = 0;
+      function tick() {
+        ctx.clearRect(0, 0, c.width, c.height);
+        pts.forEach(p => {
+          p.x += p.vx; p.y += p.vy; p.r += p.vr;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.r);
+          ctx.fillStyle = p.col;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+        f++;
+        if (f < 130) requestAnimationFrame(tick);
+        else { ctx.clearRect(0, 0, c.width, c.height); c.classList.add('hidden'); }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // --- INIT ---
+    window.onload = function () {
+      updateHeader();
+      switchTab('home');
+    };
+  </script>
+</body>
+</html>
